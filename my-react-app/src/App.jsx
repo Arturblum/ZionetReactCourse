@@ -1,11 +1,23 @@
+import { Link, Route, Routes } from 'react-router-dom'
 import './App.css'
+import About from './About'
 import CheckInForm from './CheckInForm'
 
 function App() {
   return (
     <div className="app-shell">
-      <h1>Contact info</h1>
-      <CheckInForm />
+      <header className="nav">
+        <h1>Contact info</h1>
+        <nav className="nav-links">
+          <Link to="/">Home</Link>
+          <Link to="/about">About</Link>
+        </nav>
+      </header>
+
+      <Routes>
+        <Route path="/" element={<CheckInForm />} />
+        <Route path="/about" element={<About />} />
+      </Routes>
     </div>
   )
 }
