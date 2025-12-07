@@ -1,11 +1,20 @@
+import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from 'react'
 import { useEffect, useState } from 'react'
+
+type Contact = {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+  phone: string
+}
 
 function CheckInForm() {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
-  const [contacts, setContacts] = useState([])
+  const [contacts, setContacts] = useState<Contact[]>([])
   const [countLabel, setCountLabel] = useState('0 contacts')
 
   useEffect(() => {
@@ -19,13 +28,18 @@ function CheckInForm() {
     setCountLabel(label)
   }, [contacts])
 
-  const handleSubmit = (event) => {
+  const handleInputChange =
+    (setter: Dispatch<SetStateAction<string>>) =>
+    (event: ChangeEvent<HTMLInputElement>) =>
+      setter(event.target.value)
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
     const trimmedEmail = email.trim()
     const trimmedFirst = firstName.trim()
     if (!trimmedEmail || !trimmedFirst) return
 
-    const contact = {
+    const contact: Contact = {
       id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
       firstName: trimmedFirst,
       lastName: lastName.trim(),
@@ -55,7 +69,7 @@ function CheckInForm() {
             id="firstName"
             type="text"
             value={firstName}
-            onChange={(event) => setFirstName(event.target.value)}
+            onChange={handleInputChange(setFirstName)}
             placeholder="Jhon"
           />
         </div>
@@ -66,7 +80,7 @@ function CheckInForm() {
             id="lastName"
             type="text"
             value={lastName}
-            onChange={(event) => setLastName(event.target.value)}
+            onChange={handleInputChange(setLastName)}
             placeholder="Doe"
           />
         </div>
@@ -77,7 +91,7 @@ function CheckInForm() {
             id="email"
             type="email"
             value={email}
-            onChange={(event) => setEmail(event.target.value)}
+            onChange={handleInputChange(setEmail)}
             placeholder="email@example.com"
             required
           />
@@ -89,7 +103,7 @@ function CheckInForm() {
             id="phone"
             type="tel"
             value={phone}
-            onChange={(event) => setPhone(event.target.value)}
+            onChange={handleInputChange(setPhone)}
             placeholder="(555) 123-4567"
           />
         </div>
