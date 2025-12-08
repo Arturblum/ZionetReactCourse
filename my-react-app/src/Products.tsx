@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { Link } from 'react-router-dom'
 
 type Product = {
   id: number
@@ -42,7 +43,9 @@ function Products() {
       <ul className="contact-list">
         {data?.products.map((product) => (
           <li key={product.id}>
-            <strong>{product.title}</strong>
+            <Link to={`/products/${product.id}`}>
+              <strong>{product.title}</strong>
+            </Link>
           </li>
         ))}
       </ul>
@@ -51,4 +54,3 @@ function Products() {
 }
 
 export default Products
-
