@@ -1,15 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
-
-type Product = {
-  id: number
-  title: string
-  description: string
-  price: number
-  thumbnail: string
-}
-
-const PRODUCT_DETAIL_URL = 'https://dummyjson.com/products'
+import { fetchProduct, type Product } from '../api/products'
 
 function ProductDetail() {
   const { id } = useParams<{ id: string }>()
@@ -22,11 +13,10 @@ function ProductDetail() {
   } = useQuery<Product, Error>({
     queryKey: ['product', id],
     queryFn: async () => {
-      const response = await fetch(`${PRODUCT_DETAIL_URL}/${id}`)
-      if (!response.ok) {
-        throw new Error('Failed to load product')
+      if (!id) {
+        throw new Error('Missing product id.')
       }
-      return response.json()
+      return fetchProduct(id)
     },
     enabled: Boolean(id),
   })
@@ -61,4 +51,3 @@ function ProductDetail() {
 }
 
 export default ProductDetail
-

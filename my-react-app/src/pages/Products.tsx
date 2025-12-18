@@ -1,19 +1,11 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { Link } from 'react-router-dom'
+import {
+  fetchProducts,
+  type ProductSummary,
+  type ProductsResponse,
+} from '../api/products'
 
-type Product = {
-  id: number
-  title: string
-}
-
-type ProductsResponse = {
-  products: Product[]
-  total: number
-  skip: number
-  limit: number
-}
-
-const PRODUCTS_URL = 'https://dummyjson.com/products'
 const PAGE_SIZE = 5
 
 function Products() {
@@ -28,15 +20,7 @@ function Products() {
   } = useInfiniteQuery<ProductsResponse, Error>({
     queryKey: ['products'],
     initialPageParam: 0,
-    queryFn: async ({ pageParam }) => {
-      const response = await fetch(
-        `${PRODUCTS_URL}?limit=${PAGE_SIZE}&skip=${pageParam}`,
-      )
-      if (!response.ok) {
-        throw new Error('Failed to load products')
-      }
-      return response.json()
-    },
+    queryFn: async ({ pageParam = 0 }) => fetchProducts(pageParam, PAGE_SIZE),
     getNextPageParam: (lastPage) => {
       const nextSkip = lastPage.skip + lastPage.limit
       return nextSkip < lastPage.total ? nextSkip : undefined
@@ -51,7 +35,8 @@ function Products() {
     return <p>Something went wrong: {error.message}</p>
   }
 
-  const products = data?.pages.flatMap((page) => page.products) ?? []
+  const products =
+    data?.pages.flatMap<ProductSummary>((page) => page.products) ?? []
 
   return (
     <section className="card">
