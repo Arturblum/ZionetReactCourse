@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Link, useParams } from 'react-router-dom'
 import { fetchProduct, type Product } from '../api/products'
 
-function ProductDetail() {
+const ProductDetail = () => {
   const { id } = useParams<{ id: string }>()
 
   const {

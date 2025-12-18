@@ -8,7 +8,7 @@ import {
 
 const PAGE_SIZE = 5
 
-function Products() {
+const Products = () => {
   const {
     data,
     isLoading,
