@@ -1,4 +1,5 @@
 const PRODUCTS_URL = 'https://dummyjson.com/products'
+const CARTS_URL = 'https://dummyjson.com/carts'
 
 export type Product = {
   id: number
@@ -33,3 +34,31 @@ export async function fetchProducts(skip: number, limit: number) {
   return response.json() as Promise<ProductsResponse>
 }
 
+export type AddToCartResponse = {
+  id: number
+  products: Array<{ id: number; quantity: number }>
+  total: number
+  discountedTotal: number
+  userId: number
+  totalProducts: number
+  totalQuantity: number
+}
+
+export async function addProductToCart(productId: number, quantity = 1, userId = 1) {
+  const response = await fetch(`${CARTS_URL}/add`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      userId,
+      products: [{ id: productId, quantity }],
+    }),
+  })
+
+  if (!response.ok) {
+    throw new Error('Failed to add product to cart')
+  }
+
+  return response.json() as Promise<AddToCartResponse>
+}

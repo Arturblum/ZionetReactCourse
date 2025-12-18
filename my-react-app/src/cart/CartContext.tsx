@@ -17,7 +17,7 @@ type CartContextValue = {
   open: () => void
   close: () => void
   toggle: () => void
-  addItem: (item: Omit<CartItem, 'quantity'>) => void
+  addItem: (item: Omit<CartItem, 'quantity'>, options?: { notify?: boolean }) => void
   removeItem: (id: number) => void
   clear: () => void
 }
@@ -37,25 +37,29 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const close = useCallback(() => setIsOpen(false), [])
   const toggle = useCallback(() => setIsOpen((current) => !current), [])
 
-  const addItem = useCallback((item: Omit<CartItem, 'quantity'>) => {
+  const addItem = useCallback((item: Omit<CartItem, 'quantity'>, options?: { notify?: boolean }) => {
     if (!item?.id || !item?.title) {
-      useNotificationsStore.getState().addNotification({
-        type: 'error',
-        message: 'Unable to add item to cart (invalid item).',
-        timeout: 5000,
-      })
+      if (options?.notify ?? true) {
+        useNotificationsStore.getState().addNotification({
+          type: 'error',
+          message: 'Unable to add item to cart (invalid item).',
+          timeout: 5000,
+        })
+      }
       return
     }
 
     const alreadyInCart = itemsRef.current.some((entry) => entry.id === item.id)
 
-    useNotificationsStore.getState().addNotification({
-      type: alreadyInCart ? 'info' : 'success',
-      message: alreadyInCart
-        ? `Increased quantity of “${item.title}”.`
-        : `Added “${item.title}” to cart.`,
-      timeout: 2500,
-    })
+    if (options?.notify ?? true) {
+      useNotificationsStore.getState().addNotification({
+        type: alreadyInCart ? 'info' : 'success',
+        message: alreadyInCart
+          ? `Increased quantity of “${item.title}”.`
+          : `Added “${item.title}” to cart.`,
+        timeout: 2500,
+      })
+    }
 
     setItems((current) => {
       const existing = current.find((entry) => entry.id === item.id)

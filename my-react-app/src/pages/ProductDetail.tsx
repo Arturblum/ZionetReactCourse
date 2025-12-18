@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { fetchProduct, type Product } from '../api/products'
+import { addProductToCart, fetchProduct, type Product } from '../api/products'
 import { useCart } from '../cart/CartContext'
 import { useNotificationsStore } from '../stores/notifications'
 
@@ -24,6 +24,43 @@ const ProductDetail = () => {
       return fetchProduct(id)
     },
     enabled: Boolean(id),
+  })
+
+  const addToCartMutation = useMutation({
+    mutationFn: async () => {
+      if (!data) {
+        throw new Error('Missing product.')
+      }
+      return addProductToCart(data.id, 1)
+    },
+    onSuccess: () => {
+      if (!data) return
+      addItem(
+        {
+          id: data.id,
+          title: data.title,
+          price: data.price,
+          thumbnail: data.thumbnail,
+        },
+        { notify: false },
+      )
+      addNotification({
+        type: 'success',
+        message: 'Product added to cart',
+        timeout: 3000,
+      })
+    },
+    onError: (mutationError) => {
+      addNotification({
+        id: `add-to-cart-error:${id ?? 'missing-id'}`,
+        type: 'error',
+        message:
+          mutationError instanceof Error
+            ? mutationError.message
+            : 'Failed to add product to cart.',
+        timeout: 6000,
+      })
+    },
   })
 
   useEffect(() => {
@@ -63,18 +100,10 @@ const ProductDetail = () => {
       </p>
       <button
         type="button"
-        onClick={() => {
-          if (!data) return
-          addItem({
-            id: data.id,
-            title: data.title,
-            price: data.price,
-            thumbnail: data.thumbnail,
-          })
-        }}
-        disabled={!data}
+        onClick={() => addToCartMutation.mutate()}
+        disabled={!data || addToCartMutation.isPending}
       >
-        Add to cart
+        {addToCartMutation.isPending ? 'Adding...' : 'Add to cart'}
       </button>
     </section>
   )
