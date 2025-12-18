@@ -6,6 +6,7 @@ import ProductDetail from './pages/ProductDetail'
 import Products from './pages/Products'
 import CartSidebar from './cart/CartSidebar'
 import { useCart } from './cart/CartContext'
+import ToastHost from './toast/ToastHost'
 
 function App() {
   const { isOpen, toggle, items } = useCart()
@@ -36,6 +37,7 @@ function App() {
         <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
       <CartSidebar />
+      <ToastHost />
     </div>
   )
 }

@@ -1,11 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { fetchProduct, type Product } from '../api/products'
 import { useCart } from '../cart/CartContext'
+import { useNotificationsStore } from '../stores/notifications'
 
 const ProductDetail = () => {
   const { id } = useParams<{ id: string }>()
   const { addItem } = useCart()
+  const addNotification = useNotificationsStore((s) => s.addNotification)
 
   const {
     data,
@@ -22,6 +25,16 @@ const ProductDetail = () => {
     },
     enabled: Boolean(id),
   })
+
+  useEffect(() => {
+    if (!isError) return
+    addNotification({
+      id: `product-load-error:${id ?? 'missing-id'}`,
+      type: 'error',
+      message: error?.message ?? 'Failed to load product.',
+      timeout: 6000,
+    })
+  }, [isError, error, addNotification])
 
   if (!id) {
     return <p>Missing product id.</p>

@@ -1,5 +1,6 @@
 import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from 'react'
 import { useEffect, useState } from 'react'
+import { useNotificationsStore } from './stores/notifications'
 
 type Contact = {
   id: string
@@ -16,6 +17,7 @@ function CheckInForm() {
   const [phone, setPhone] = useState('')
   const [contacts, setContacts] = useState<Contact[]>([])
   const [countLabel, setCountLabel] = useState('0 contacts')
+  const addNotification = useNotificationsStore((s) => s.addNotification)
 
   useEffect(() => {
     document.title = contacts.length
@@ -37,7 +39,14 @@ function CheckInForm() {
     event.preventDefault()
     const trimmedEmail = email.trim()
     const trimmedFirst = firstName.trim()
-    if (!trimmedEmail || !trimmedFirst) return
+    if (!trimmedEmail || !trimmedFirst) {
+      addNotification({
+        type: 'error',
+        message: 'Please enter at least a first name and email.',
+        timeout: 4000,
+      })
+      return
+    }
 
     const contact: Contact = {
       id: crypto.randomUUID ? crypto.randomUUID() : Date.now().toString(),
@@ -52,6 +61,11 @@ function CheckInForm() {
     setLastName('')
     setEmail('')
     setPhone('')
+    addNotification({
+      type: 'success',
+      message: 'Contact saved.',
+      timeout: 3000,
+    })
   }
 
   return (
