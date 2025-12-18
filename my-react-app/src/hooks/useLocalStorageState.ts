@@ -4,13 +4,23 @@ function canUseLocalStorage() {
   return typeof window !== 'undefined' && typeof window.localStorage !== 'undefined'
 }
 
-export default function useLocalStorageState<T>(key: string, defaultValue: T) {
+type UseLocalStorageStateOptions<T> = {
+  validate?: (value: unknown) => value is T
+}
+
+export default function useLocalStorageState<T>(
+  key: string,
+  defaultValue: T,
+  options?: UseLocalStorageStateOptions<T>,
+) {
   const [value, setValue] = useState<T>(() => {
     if (!canUseLocalStorage()) return defaultValue
     try {
       const stored = window.localStorage.getItem(key)
       if (stored === null) return defaultValue
-      return JSON.parse(stored) as T
+      const parsed: unknown = JSON.parse(stored)
+      if (options?.validate && !options.validate(parsed)) return defaultValue
+      return parsed as T
     } catch {
       return defaultValue
     }
@@ -27,4 +37,3 @@ export default function useLocalStorageState<T>(key: string, defaultValue: T) {
 
   return [value, setValue] as const
 }
-

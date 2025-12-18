@@ -25,8 +25,12 @@ type CartContextValue = {
 const CartContext = createContext<CartContextValue | null>(null)
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [isOpen, setIsOpen] = useLocalStorageState('cart-open', false)
-  const [items, setItems] = useState<CartItem[]>([])
+  const [isOpen, setIsOpen] = useLocalStorageState('cart-open', false, {
+    validate: (value): value is boolean => typeof value === 'boolean',
+  })
+  const [items, setItems] = useLocalStorageState<CartItem[]>('cart-items', [], {
+    validate: Array.isArray,
+  })
   const itemsRef = useRef(items)
 
   useEffect(() => {

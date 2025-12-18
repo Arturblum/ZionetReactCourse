@@ -38,7 +38,7 @@ This document lists the current pieces of state in this project and classifies e
   - Global UI state stored in Context in `my-react-app/src/cart/CartContext.tsx`.
 
 - **Cart contents** (`items: CartItem[]`) — **Client/UI state**  
-  - Global client state stored in Context in `my-react-app/src/cart/CartContext.tsx`.
+  - Global client state stored in Context (persisted to `localStorage` as `cart-items`) in `my-react-app/src/cart/CartContext.tsx`.
 
 - **Cart item quantity** (`CartItem.quantity`) — **Client/UI state**  
   - Stored per item inside `items` in `my-react-app/src/cart/CartContext.tsx`.
@@ -58,6 +58,11 @@ This document lists the current pieces of state in this project and classifies e
 - **Cart badge count** — derived from `items.length` in `my-react-app/src/App.tsx`.
 - **Cart total** — derived from `items` in `my-react-app/src/cart/CartSidebar.tsx`.
 
+## Client/UI state (global app state via Zustand)
+
+- **Theme** (`theme: 'light' | 'dark'`) — **Client/UI state**  
+  - Global UI preference stored in Zustand (persisted to `localStorage`) in `my-react-app/src/stores/theme.ts`.
+
 ## Conclusion
 
-The products list, pagination cursor, product detail, and all loading/error flags clearly belong in **TanStack Query** because they’re API-backed and benefit from caching and request lifecycle management. The cart sidebar open/close flag and cart contents make sense as **global client state** (Context/Zustand/Jotai) because multiple routes can add items and the header/sidebar can read it. The contact form fields and contacts list are best kept as **local UI state** inside `CheckInForm` since they’re only used there and aren’t synced to a server.
+The products list, pagination cursor, product detail, and all loading/error flags clearly belong in **TanStack Query** because they’re API-backed and benefit from caching and request lifecycle management. The cart sidebar open/close flag and cart contents make sense as **global client state** because multiple routes can add items and the header/sidebar can read it, and theme is also a good global UI preference (especially when persisted). The contact form fields and contacts list are best kept as **local UI state** inside `CheckInForm` since they’re only used there and aren’t synced to a server.

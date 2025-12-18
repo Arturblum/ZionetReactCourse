@@ -7,9 +7,17 @@ import Products from './pages/Products'
 import CartSidebar from './cart/CartSidebar'
 import { useCart } from './cart/CartContext'
 import ToastHost from './toast/ToastHost'
+import { useThemeStore } from './stores/theme'
+import { useEffect } from 'react'
 
 function App() {
   const { isOpen, toggle, items } = useCart()
+  const theme = useThemeStore((s) => s.theme)
+  const toggleTheme = useThemeStore((s) => s.toggleTheme)
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+  }, [theme])
 
   return (
     <div className="app-shell">
@@ -26,6 +34,9 @@ function App() {
             aria-controls="global-cart"
           >
             Cart ({items.length})
+          </button>
+          <button type="button" onClick={toggleTheme}>
+            Theme: {theme}
           </button>
         </nav>
       </header>
