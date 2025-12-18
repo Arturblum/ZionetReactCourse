@@ -2,8 +2,8 @@ import { Link, Route, Routes } from 'react-router-dom'
 import './App.css'
 import About from './About'
 import CheckInForm from './CheckInForm'
-import ProductDetail from './ProductDetail'
-import Products from './Products'
+import ProductDetail from './pages/ProductDetail'
+import Products from './pages/Products'
 
 function App() {
   return (
