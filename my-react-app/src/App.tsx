@@ -4,8 +4,12 @@ import About from './About'
 import CheckInForm from './CheckInForm'
 import ProductDetail from './pages/ProductDetail'
 import Products from './pages/Products'
+import CartSidebar from './cart/CartSidebar'
+import { useCart } from './cart/CartContext'
 
 function App() {
+  const { isOpen, toggle, items } = useCart()
+
   return (
     <div className="app-shell">
       <header className="nav">
@@ -14,6 +18,14 @@ function App() {
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/products">Products</Link>
+          <button
+            type="button"
+            onClick={toggle}
+            aria-expanded={isOpen}
+            aria-controls="global-cart"
+          >
+            Cart ({items.length})
+          </button>
         </nav>
       </header>
 
@@ -23,6 +35,7 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
+      <CartSidebar />
     </div>
   )
 }

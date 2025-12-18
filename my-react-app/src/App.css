@@ -20,9 +20,11 @@
 .nav-links {
   display: flex;
   gap: 0.75rem;
+  align-items: center;
 }
 
-.nav-links a {
+.nav-links a,
+.nav-links button {
   padding: 0.35rem 0.65rem;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.12);
@@ -30,6 +32,15 @@
   color: inherit;
   text-decoration: none;
   font-weight: 600;
+}
+
+.nav-links button {
+  cursor: pointer;
+  font: inherit;
+}
+
+.nav-links button:hover {
+  background: rgba(255, 255, 255, 0.22);
 }
 
 .card {
@@ -101,6 +112,54 @@ button:hover {
   background: rgba(255, 255, 255, 0.22);
 }
 
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease;
+}
+
+.sidebar-overlay[data-open='true'] {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.sidebar-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  border: none;
+  border-radius: 0;
+}
+
+.sidebar-panel {
+  position: absolute;
+  top: 0;
+  right: 0;
+  height: 100%;
+  width: min(360px, 90vw);
+  padding: 1rem;
+  border-left: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(18, 18, 18, 0.98);
+  display: grid;
+  gap: 0.75rem;
+  transform: translateX(24px);
+  transition: transform 150ms ease;
+}
+
+.sidebar-overlay[data-open='true'] .sidebar-panel {
+  transform: translateX(0);
+}
+
+.sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
 .contact-list {
   list-style: none;
   padding: 0;
@@ -113,4 +172,49 @@ button:hover {
   padding: 0.6rem 0.75rem;
   border-radius: 8px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.cart-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: 0.6rem;
+}
+
+.cart-item {
+  display: grid;
+  grid-template-columns: 52px 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  padding: 0.6rem 0.75rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.cart-thumb {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.cart-item-main {
+  display: grid;
+  gap: 0.15rem;
+}
+
+.cart-item-title {
+  line-height: 1.2;
+}
+
+.cart-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
