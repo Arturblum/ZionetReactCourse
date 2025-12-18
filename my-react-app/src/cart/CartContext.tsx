@@ -1,5 +1,6 @@
 import type { ReactNode } from 'react'
 import { createContext, useCallback, useContext, useMemo, useState } from 'react'
+import useLocalStorageState from '../hooks/useLocalStorageState'
 
 export type CartItem = {
   id: number
@@ -23,7 +24,7 @@ type CartContextValue = {
 const CartContext = createContext<CartContextValue | null>(null)
 
 export function CartProvider({ children }: { children: ReactNode }) {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useLocalStorageState('cart-open', false)
   const [items, setItems] = useState<CartItem[]>([])
 
   const open = useCallback(() => setIsOpen(true), [])
@@ -73,4 +74,3 @@ export function useCart() {
   }
   return context
 }
-
