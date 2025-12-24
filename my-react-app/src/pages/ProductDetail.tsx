@@ -5,7 +5,7 @@ import { addProductToCart, fetchProduct, type Product } from '../api/products'
 import { useCart } from '../contexts/CartContext'
 import { useNotificationsStore } from '../stores/notifications'
 
-const ProductDetail = () => {
+export const ProductDetail = () => {
   const { id } = useParams<{ id: string }>()
   const { addItem } = useCart()
   const addNotification = useNotificationsStore((s) => s.addNotification)
@@ -108,5 +108,3 @@ const ProductDetail = () => {
     </section>
   )
 }
-
-export default ProductDetail
