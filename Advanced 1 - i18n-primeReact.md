@@ -56,3 +56,32 @@ When Hebrew language is active, the app automatically sets `document.documentEle
 ### Screenshots
 - RTL mode (Hebrew): [step4-rtl-fixed.png](docs/screenshots/step4-rtl-fixed.png)
 - RTL sidebar demonstration: [step4-rtl-sidebar.png](docs/screenshots/step4-rtl-sidebar.png)
+
+## Step 5 - PrimeReact DataTable
+
+### Implementation
+Converted the Products page list view to use PrimeReact's DataTable component with the following features:
+
+### DataTable Columns
+1. **Title** - Product name (sortable)
+2. **Price** - Formatted as currency with $ symbol (sortable)
+3. **Category** - Product category (sortable)
+4. **Image** - Thumbnail image (60x60px, object-fit: cover)
+5. **Action** - "View Details" button linking to product detail page
+
+### Features Implemented
+1. **Sorting** - Multi-column sorting enabled on Title, Price, and Category columns
+   - Click column headers to sort ascending/descending
+   - Supports sorting by multiple columns simultaneously
+   - Visual indicators show sort direction
+
+2. **Pagination** - Full pagination controls with customizable rows per page
+   - 10 rows per page by default
+   - Dropdown to select 5, 10, or 20 rows per page
+   - Navigation buttons: First Page, Previous, Page Numbers, Next, Last Page
+   - Current page report shows "1 to 10 of 20" format
+
+### Screenshots
+- DataTable in Hebrew with sorting by price: [step5-datatable.png](docs/screenshots/step5-datatable.png)
+- DataTable in English: [step5-datatable-english.png](docs/screenshots/step5-datatable-english.png)
+
