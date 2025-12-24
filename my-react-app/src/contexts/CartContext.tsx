@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef } from 'react'
-import useLocalStorageState from '../../hooks/useLocalStorageState'
-import { useNotificationsStore } from '../../stores/notifications'
+import useLocalStorageState from '../hooks/useLocalStorageState'
+import { useNotificationsStore } from '../stores/notifications'
 
 export type CartItem = {
   id: number
