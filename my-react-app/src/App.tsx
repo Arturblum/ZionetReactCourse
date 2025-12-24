@@ -7,15 +7,31 @@ import { useThemeStore } from './stores'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
+const LANGUAGE_STORAGE_KEY = 'app-language'
+
 function App() {
   const { isOpen, toggle, items } = useCart()
   const theme = useThemeStore((s) => s.theme)
   const toggleTheme = useThemeStore((s) => s.toggleTheme)
-  const { t } = useTranslation(['common'])
+  const { t, i18n } = useTranslation(['common'])
+
+  // Restore language from localStorage on mount
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY)
+    if (savedLanguage && savedLanguage !== i18n.language) {
+      i18n.changeLanguage(savedLanguage)
+    }
+  }, [])
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
   }, [theme])
+
+  const switchLanguage = () => {
+    const newLanguage = i18n.language === 'en' ? 'he' : 'en'
+    i18n.changeLanguage(newLanguage)
+    localStorage.setItem(LANGUAGE_STORAGE_KEY, newLanguage)
+  }
 
   return (
     <div className="app-shell">
@@ -35,6 +51,9 @@ function App() {
           </button>
           <button type="button" onClick={toggleTheme}>
             {t('header.theme', { theme })}
+          </button>
+          <button type="button" onClick={switchLanguage}>
+            {t('header.language', { language: i18n.language === 'en' ? 'English' : 'עברית' })}
           </button>
         </nav>
       </header>

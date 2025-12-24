@@ -12,6 +12,7 @@ const resources = {
         products: 'Products',
         cart: 'Cart ({{count}})',
         theme: 'Theme: {{theme}}',
+        language: 'Language: {{language}}',
       },
       button: {
         viewDetails: 'View Details',
@@ -71,6 +72,7 @@ const resources = {
         products: 'מוצרים',
         cart: 'עגלה ({{count}})',
         theme: 'ערכת נושא: {{theme}}',
+        language: 'שפה: {{language}}',
       },
       button: {
         viewDetails: 'צפה בפרטים',
