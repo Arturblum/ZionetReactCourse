@@ -29,9 +29,10 @@
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--surface);
-  color: inherit;
+  color: var(--text);
   text-decoration: none;
   font-weight: 600;
+  transition: all 0.2s;
 }
 
 .nav-links button {
@@ -39,8 +40,11 @@
   font: inherit;
 }
 
-.nav-links button:hover {
-  background: rgba(255, 255, 255, 0.22);
+.nav-links button:hover,
+.nav-links a:hover {
+  background: var(--surface-strong);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .card {
@@ -155,6 +159,15 @@ button:hover {
   transition: transform 150ms ease;
 }
 
+/* RTL: Flip sidebar to open from left */
+[dir='rtl'] .sidebar-panel {
+  right: auto;
+  left: 0;
+  border-left: none;
+  border-right: 1px solid var(--border);
+  transform: translateX(-24px);
+}
+
 .sidebar-overlay[data-open='true'] .sidebar-panel {
   transform: translateX(0);
 }
@@ -177,6 +190,12 @@ button:hover {
   list-style: none;
   padding: 0;
   margin: 0;
+}
+
+/* RTL: Position toasts on the left side */
+[dir='rtl'] .toast-host {
+  right: auto;
+  left: 1rem;
 }
 
 .toast {

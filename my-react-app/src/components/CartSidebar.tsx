@@ -1,8 +1,10 @@
 import { useEffect, useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 import { useCart } from '../contexts'
 
 const CartSidebar = () => {
   const { isOpen, items, close, removeItem, clear } = useCart()
+  const { t } = useTranslation(['common'])
 
   useEffect(() => {
     if (!isOpen) return
@@ -29,18 +31,18 @@ const CartSidebar = () => {
       <aside
         id="global-cart"
         className="sidebar-panel"
-        aria-label="Cart"
+        aria-label={t('cart.title')}
         role="complementary"
       >
         <div className="sidebar-header">
-          <h2>Cart</h2>
+          <h2>{t('cart.title')}</h2>
           <button type="button" onClick={close}>
-            Close
+            {t('button.close')}
           </button>
         </div>
 
         {items.length === 0 ? (
-          <p className="muted">Your cart is empty.</p>
+          <p className="muted">{t('cart.empty')}</p>
         ) : (
           <>
             <ul className="cart-list">
@@ -52,24 +54,24 @@ const CartSidebar = () => {
                       <strong>{item.title}</strong>
                     </div>
                     <div className="muted small">
-                      Qty {item.quantity} · ${(item.price * item.quantity).toFixed(2)}
+                      {t('cart.quantity')} {item.quantity} · ${(item.price * item.quantity).toFixed(2)}
                     </div>
                   </div>
                   <button type="button" onClick={() => removeItem(item.id)}>
-                    Remove
+                    {t('button.remove')}
                   </button>
                 </li>
               ))}
             </ul>
             <div className="cart-footer">
               <div>
-                <span className="muted">Total</span>
+                <span className="muted">{t('cart.total')}</span>
                 <div>
                   <strong>${total.toFixed(2)}</strong>
                 </div>
               </div>
               <button type="button" onClick={clear}>
-                Clear
+                {t('button.clear')}
               </button>
             </div>
           </>

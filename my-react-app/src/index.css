@@ -11,31 +11,37 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Dark theme - matches PrimeReact dark themes */
 :root[data-theme='dark'] {
-  --bg: #242424;
-  --text: rgba(255, 255, 255, 0.92);
-  --muted: rgba(255, 255, 255, 0.7);
-  --surface: rgba(255, 255, 255, 0.04);
-  --surface-strong: rgba(255, 255, 255, 0.08);
-  --border: rgba(255, 255, 255, 0.12);
+  --bg: #1e1e1e;
+  --text: rgba(255, 255, 255, 0.87);
+  --muted: rgba(255, 255, 255, 0.6);
+  --surface: #2a2a2a;
+  --surface-strong: #3a3a3a;
+  --border: rgba(255, 255, 255, 0.2);
+  --primary: #60a5fa;
+  --primary-hover: #3b82f6;
 }
 
+/* Light theme - matches PrimeReact light themes */
 :root[data-theme='light'] {
-  --bg: #ffffff;
-  --text: rgba(20, 20, 20, 0.92);
-  --muted: rgba(20, 20, 20, 0.65);
-  --surface: rgba(0, 0, 0, 0.04);
-  --surface-strong: rgba(0, 0, 0, 0.08);
+  --bg: #f8f9fa;
+  --text: rgba(0, 0, 0, 0.87);
+  --muted: rgba(0, 0, 0, 0.6);
+  --surface: #ffffff;
+  --surface-strong: #f4f4f5;
   --border: rgba(0, 0, 0, 0.12);
+  --primary: #3b82f6;
+  --primary-hover: #2563eb;
 }
 
 a {
   font-weight: 500;
-  color: #646cff;
+  color: var(--primary);
   text-decoration: inherit;
 }
 a:hover {
-  color: #535bf2;
+  color: var(--primary-hover);
 }
 
 body {
@@ -55,25 +61,28 @@ h1 {
 
 button {
   border-radius: 8px;
-  border: 1px solid transparent;
+  border: 1px solid var(--border);
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
+  background-color: var(--surface);
+  color: var(--text);
   cursor: pointer;
-  transition: border-color 0.25s;
+  transition: all 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  background-color: var(--surface-strong);
+  border-color: var(--primary);
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 2px solid var(--primary);
+  outline-offset: 2px;
 }
 
 @media (prefers-color-scheme: light) {
   a:hover {
-    color: #747bff;
+    color: var(--primary-hover);
   }
 }
