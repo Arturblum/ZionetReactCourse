@@ -29,9 +29,10 @@
   border-radius: 8px;
   border: 1px solid var(--border);
   background: var(--surface);
-  color: inherit;
+  color: var(--text);
   text-decoration: none;
   font-weight: 600;
+  transition: all 0.2s;
 }
 
 .nav-links button {
@@ -39,8 +40,11 @@
   font: inherit;
 }
 
-.nav-links button:hover {
-  background: rgba(255, 255, 255, 0.22);
+.nav-links button:hover,
+.nav-links a:hover {
+  background: var(--surface-strong);
+  border-color: var(--primary);
+  color: var(--primary);
 }
 
 .card {

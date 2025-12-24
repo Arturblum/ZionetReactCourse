@@ -3,16 +3,25 @@ import './App.css'
 import { CartSidebar, ToastHost } from './components'
 import { useCart } from './contexts'
 import { About, CheckInForm, ProductDetail, Products } from './pages'
-import { useThemeStore } from './stores'
+import { useThemeStore, loadPrimeReactTheme, type PrimeReactTheme } from './stores'
 import { useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
 
 const LANGUAGE_STORAGE_KEY = 'app-language'
 
+const PRIMEREACT_THEMES: { label: string; value: PrimeReactTheme }[] = [
+  { label: 'Lara Light Blue', value: 'lara-light-blue' },
+  { label: 'Lara Dark Blue', value: 'lara-dark-blue' },
+  { label: 'Lara Light Indigo', value: 'lara-light-indigo' },
+  { label: 'Lara Dark Indigo', value: 'lara-dark-indigo' },
+]
+
 function App() {
   const { isOpen, toggle, items } = useCart()
   const theme = useThemeStore((s) => s.theme)
   const toggleTheme = useThemeStore((s) => s.toggleTheme)
+  const primeTheme = useThemeStore((s) => s.primeTheme)
+  const setPrimeTheme = useThemeStore((s) => s.setPrimeTheme)
   const { t, i18n } = useTranslation(['common'])
 
   // Restore language from localStorage on mount
@@ -40,6 +49,14 @@ function App() {
     localStorage.setItem(LANGUAGE_STORAGE_KEY, newLanguage)
   }
 
+  const handlePrimeThemeChange = (newTheme: PrimeReactTheme) => {
+    setPrimeTheme(newTheme)
+    loadPrimeReactTheme(newTheme)
+    // Update data-theme attribute for entire app styling
+    const isLight = newTheme.includes('light')
+    document.documentElement.dataset.theme = isLight ? 'light' : 'dark'
+  }
+
   return (
     <div className="app-shell">
       <header className="nav">
@@ -59,6 +76,17 @@ function App() {
           <button type="button" onClick={toggleTheme}>
             {t('header.theme', { theme })}
           </button>
+          <select 
+            value={primeTheme} 
+            onChange={(e) => handlePrimeThemeChange(e.target.value as PrimeReactTheme)}
+            style={{ padding: '0.5rem', borderRadius: '4px' }}
+          >
+            {PRIMEREACT_THEMES.map((theme) => (
+              <option key={theme.value} value={theme.value}>
+                {theme.label}
+              </option>
+            ))}
+          </select>
           <button type="button" onClick={switchLanguage}>
             {t('header.language', { language: i18n.language === 'en' ? 'English' : 'עברית' })}
           </button>

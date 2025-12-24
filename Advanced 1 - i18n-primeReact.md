@@ -85,3 +85,67 @@ Converted the Products page list view to use PrimeReact's DataTable component wi
 - DataTable in Hebrew with sorting by price: [step5-datatable.png](docs/screenshots/step5-datatable.png)
 - DataTable in English: [step5-datatable-english.png](docs/screenshots/step5-datatable-english.png)
 
+## Step 6 - PrimeReact Theme Switcher
+
+### Implementation
+Added a comprehensive theme switcher that affects the **entire application**, not just PrimeReact components. The theme switcher synchronizes both PrimeReact component styling and application-wide CSS variables.
+
+### Available Themes
+The theme switcher provides 4 different PrimeReact theme options:
+1. **Lara Light Blue** (default) - Light theme with blue accents
+2. **Lara Dark Blue** - Dark theme with blue accents
+3. **Lara Light Indigo** - Light theme with indigo accents
+4. **Lara Dark Indigo** - Dark theme with indigo accents
+
+### How It Works
+1. **Theme Store** - Uses Zustand with persist middleware to store theme preferences
+   - Automatically detects light/dark from theme name (e.g., "lara-**light**-blue" → light mode)
+   - Stores both `primeTheme` (PrimeReact theme name) and `theme` (light/dark for app-wide styling)
+   - Persists to localStorage with keys: `theme` (Zustand store) and `primereact-theme` (theme name)
+
+2. **Dynamic CSS Loading** - Theme CSS is loaded dynamically from unpkg CDN
+   - When theme changes, old theme `<link>` element is removed
+   - New `<link>` element created with ID `primereact-theme` pointing to selected theme CSS
+   - CSS URL format: `https://unpkg.com/primereact/resources/themes/{theme-name}/theme.css`
+
+3. **Application-Wide Theming**
+   - Sets `document.documentElement.dataset.theme` to 'light' or 'dark'
+   - CSS variables in index.css respond to `[data-theme='light']` and `[data-theme='dark']`
+   - Background colors, text colors, surface colors, borders all adapt to theme
+   - **Entire app changes** - headers, buttons, links, cards, forms, navigation, etc.
+
+4. **Persistence & Restoration**
+   - On app startup, `initializeTheme()` checks localStorage for saved theme
+   - If found, loads that theme and sets data-theme attribute; otherwise defaults to `lara-light-blue`
+   - When user selects new theme, it's saved to localStorage immediately
+   - Theme persists across page reloads and browser sessions
+
+5. **UI Integration**
+   - Theme switcher is a styled dropdown (`<select>`) in the header navigation
+   - Positioned between the legacy dark/light theme toggle and language switcher
+   - Displays human-readable theme names (e.g., "Lara Light Blue")
+   - Changes take effect immediately on selection
+
+### Technical Details
+- **localStorage Key**: `primereact-theme`
+- **Default Theme**: `lara-light-blue`
+- **Zustand Store**: Located in `/src/stores/theme.ts`
+- **Theme Type**: `PrimeReactTheme = 'lara-light-blue' | 'lara-dark-blue' | 'lara-light-indigo' | 'lara-dark-indigo'`
+- **CSS Variables**: Defined in `/src/index.css` with light/dark variants
+  - `--bg`, `--text`, `--muted`, `--surface`, `--surface-strong`, `--border`, `--primary`, `--primary-hover`
+
+### Screenshots
+- **Light Theme** (entire app): [step6-light-theme-full-app.png](docs/screenshots/step6-light-theme-full-app.png)
+- **Dark Theme** (entire app): [step6-dark-theme-full-app.png](docs/screenshots/step6-dark-theme-full-app.png)
+
+### What Changes With Theme
+The theme switcher affects **everything in the application**:
+- **Page background** - Light gray (#f8f9fa) vs dark gray (#1e1e1e)
+- **Text colors** - Dark text on light backgrounds, light text on dark backgrounds
+- **Navigation header** - All buttons and links adapt to theme colors
+- **Cards and surfaces** - Background colors change to match theme
+- **Form inputs** - Borders and backgrounds respond to theme
+- **Links** - Use theme primary color with hover states
+- **PrimeReact DataTable** - Table styling, header colors, row hover effects, pagination controls
+- **All PrimeReact components** - Buttons, inputs, dropdowns inherit theme automatically
+
