@@ -2,7 +2,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { addProductToCart, fetchProduct, type Product } from '../api/products'
-import { useCart } from '../cart/CartContext'
+import { useCart } from '../features/cart/CartContext'
 import { useNotificationsStore } from '../stores/notifications'
 
 const ProductDetail = () => {

@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react'
-import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
-import useLocalStorageState from '../hooks/useLocalStorageState'
-import { useNotificationsStore } from '../stores/notifications'
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef } from 'react'
+import useLocalStorageState from '../../hooks/useLocalStorageState'
+import { useNotificationsStore } from '../../stores/notifications'
 
 export type CartItem = {
   id: number
@@ -17,7 +17,9 @@ type CartContextValue = {
   open: () => void
   close: () => void
   toggle: () => void
+  // eslint-disable-next-line no-unused-vars
   addItem: (item: Omit<CartItem, 'quantity'>, options?: { notify?: boolean }) => void
+  // eslint-disable-next-line no-unused-vars
   removeItem: (id: number) => void
   clear: () => void
 }
@@ -37,9 +39,9 @@ export function CartProvider({ children }: { children: ReactNode }) {
     itemsRef.current = items
   }, [items])
 
-  const open = useCallback(() => setIsOpen(true), [])
-  const close = useCallback(() => setIsOpen(false), [])
-  const toggle = useCallback(() => setIsOpen((current) => !current), [])
+  const open = useCallback(() => setIsOpen(true), [setIsOpen])
+  const close = useCallback(() => setIsOpen(false), [setIsOpen])
+  const toggle = useCallback(() => setIsOpen((current) => !current), [setIsOpen])
 
   const addItem = useCallback((item: Omit<CartItem, 'quantity'>, options?: { notify?: boolean }) => {
     if (!item?.id || !item?.title) {
@@ -73,7 +75,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       )
     })
     setIsOpen(true)
-  }, [])
+  }, [setIsOpen, setItems])
 
   const removeItem = useCallback((id: number) => {
     const existing = itemsRef.current.find((entry) => entry.id === id)
@@ -93,7 +95,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     })
 
     setItems((current) => current.filter((entry) => entry.id !== id))
-  }, [])
+  }, [setItems])
 
   const clear = useCallback(() => {
     if (itemsRef.current.length === 0) {
@@ -112,7 +114,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     })
 
     setItems([])
-  }, [])
+  }, [setItems])
 
   const value = useMemo(
     () => ({
@@ -131,6 +133,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useCart() {
   const context = useContext(CartContext)
   if (!context) {
