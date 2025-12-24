@@ -37,3 +37,22 @@ Added a language switcher button in the header that toggles between English and 
 - English version: [step3-english.png](docs/screenshots/step3-english.png)
 - Hebrew version: [step3-hebrew.png](docs/screenshots/step3-hebrew.png)
 - After refresh (Hebrew persisted): [step3-hebrew-after-refresh.png](docs/screenshots/step3-hebrew-after-refresh.png)
+
+## Step 4 - RTL Mode
+
+### Implementation
+When Hebrew language is active, the app automatically sets `document.documentElement.dir = "rtl"` and `document.documentElement.lang = "he"` to enable proper right-to-left layout.
+
+### RTL Issues Fixed
+
+1. **Sidebar positioning and border** → Fixed positioning from right to left side
+   - Issue: Sidebar opened from the right side with `border-left`, causing incorrect visual appearance in RTL
+   - Fix: Added CSS rule `[dir='rtl'] .sidebar-panel` to flip position to `left: 0`, swap border to `border-right`, and reverse transform direction to `translateX(-24px)`
+
+2. **Toast notifications positioning** → Fixed placement from right to left corner
+   - Issue: Toast notifications appeared in top-right corner (`right: 1rem`), which is incorrect for RTL languages
+   - Fix: Added CSS rule `[dir='rtl'] .toast-host` to reposition toasts to top-left corner by setting `left: 1rem` and removing `right` property
+
+### Screenshots
+- RTL mode (Hebrew): [step4-rtl-fixed.png](docs/screenshots/step4-rtl-fixed.png)
+- RTL sidebar demonstration: [step4-rtl-sidebar.png](docs/screenshots/step4-rtl-sidebar.png)

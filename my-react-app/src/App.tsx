@@ -27,6 +27,13 @@ function App() {
     document.documentElement.dataset.theme = theme
   }, [theme])
 
+  // Set RTL mode for Hebrew language
+  useEffect(() => {
+    const isRTL = i18n.language === 'he'
+    document.documentElement.dir = isRTL ? 'rtl' : 'ltr'
+    document.documentElement.lang = i18n.language
+  }, [i18n.language])
+
   const switchLanguage = () => {
     const newLanguage = i18n.language === 'en' ? 'he' : 'en'
     i18n.changeLanguage(newLanguage)
