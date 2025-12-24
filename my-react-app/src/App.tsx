@@ -5,11 +5,13 @@ import { useCart } from './contexts'
 import { About, CheckInForm, ProductDetail, Products } from './pages'
 import { useThemeStore } from './stores'
 import { useEffect } from 'react'
+import { useTranslation } from 'react-i18next'
 
 function App() {
   const { isOpen, toggle, items } = useCart()
   const theme = useThemeStore((s) => s.theme)
   const toggleTheme = useThemeStore((s) => s.toggleTheme)
+  const { t } = useTranslation(['common'])
 
   useEffect(() => {
     document.documentElement.dataset.theme = theme
@@ -18,21 +20,21 @@ function App() {
   return (
     <div className="app-shell">
       <header className="nav">
-        <h1>Contact info</h1>
+        <h1>{t('header.title')}</h1>
         <nav className="nav-links">
-          <Link to="/">Home</Link>
-          <Link to="/about">About</Link>
-          <Link to="/products">Products</Link>
+          <Link to="/">{t('header.home')}</Link>
+          <Link to="/about">{t('header.about')}</Link>
+          <Link to="/products">{t('header.products')}</Link>
           <button
             type="button"
             onClick={toggle}
             aria-expanded={isOpen}
             aria-controls="global-cart"
           >
-            Cart ({items.length})
+            {t('header.cart', { count: items.length })}
           </button>
           <button type="button" onClick={toggleTheme}>
-            Theme: {theme}
+            {t('header.theme', { theme })}
           </button>
         </nav>
       </header>

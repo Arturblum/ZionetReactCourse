@@ -1,0 +1,160 @@
+Advanced 1 – Documentation + Homework
+i18n + PrimeReact Theming (Store App)
+IMPORTANT:
+- The Advanced 1 homework becomes mandatory only AFTER the Advanced 1 lecture.
+- You may submit the homework no later than Thursday, 25.12.25.
+ Submissions after this date will NOT be checked.
+ The earlier you submit, the better (more time for review and fixes).
+- If you have questions while working:
+ Bring them with you to class
+ We will review everything together
+Good luck and enjoy!
+Homework Submission Rules (Read Carefully)
+Pull Request Policy
+ Every homework assignment from each new session must be submitted in a separate
+Pull Request.
+ PR name format (mandatory):
+advanced-<number>/<topic>
+Example:
+advanced-1/i18n-reactprime
+Submission Process
+1. Create a new Pull Request for every new session’s homework.
+2. We will review the PR and leave comments.
+3. You must fix everything we commented — no exceptions.
+4. After applying all requested fixes, you may merge the PR into main yourself.
+5. We will NOT review the same PR twice.
+o It is your responsibility to apply the feedback correctly before merging.
+1
+Homework Submission:
+The homework submission link is always the same:
+https://forms.office.com/r/83sMHrSG2F
+Useful Documentation
+i18n (i18next + react-i18next)
+Themes
+https://www.i18next.com/
+https://react.i18next.com/
+PrimeReact
+https://primereact.org/
+DataTable
+ https://primereact.org/datatable/
+ https://primereact.org/theming/
+ https://primereact.org/icons/
+PrimeIcons
+2
+1. Assumptions & Goal
+This homework supports two starting paths:
+ Path A (recommended): You already have a Vite store app with TanStack Query (products list + product
+detail).
+ Path B (Advanced-only students): You will build a minimal starter app first (Step 0B), then continue with
+the Advanced tasks.
+Goal of this homework:
+ Add i18n using i18next + react-i18next (namespaces, pluralization, interpolation, and one <Trans />
+example).
+ Introduce PrimeReact as the UI system and render the products list using PrimeReact DataTable.
+ Add a PrimeReact theme switcher with persistence (localStorage).
+Important rule: Do not duplicate server state (do not store full product lists/details outside TanStack Query).
+2. Step 0 - Prep (Choose A or B)
+2.1 Path A - Continue from your existing app
+ Pull the latest changes and make sure the app still runs.
+ Verify the products list page works (TanStack Query).
+ Verify the product detail page works (TanStack Query, query by id).
+ Confirm your fake API base URL is still valid.
+Deliverable: Add 1-2 sentences to README, e.g. "Starting Advanced 1 from commit <hash>. API used:
+<name> (<base URL>)."
+2.2 Path B - Advanced-only starter (if you missed previous lectures)
+Build a minimal store app baseline before you start i18n/PrimeReact:
+ Create a new Vite React + TypeScript app (fresh repo is OK).
+ Install react-router-dom and add routes:
+ /products - products list
+ /products/:id - product detail
+ Optional: redirect / -> /products
+ Install TanStack Query and mount QueryClientProvider at the top of the app.
+Pick one fake API (any one is fine):
+ FakeStore API - base: https://fakestoreapi.com (endpoints: /products, /products/:id)
+ Platzi Fake Store API - base: https://api.escuelajs.co/api/v1 (endpoints: /products, /products/:id)
+ Implement two queries with TanStack Query:
+3
+ Products list query used on /products
+ Product detail query used on /products/:id
+ Add minimal UI states (plain text is fine): loading, error, empty list.
+ Make sure navigation between list and detail works.
+Deliverable: README note (same as Path A) + screenshots of: products list page and product detail page
+working.
+3. Step 1 - i18n Setup (Namespaces + 2 languages)
+3.1 Install + initialize
+ Install: i18next and react-i18next.
+ Initialize i18n once (for example in src/i18n.ts) and load it from your app entry.
+3.2 Namespaces (required)
+Create at least two namespaces:
+ common - header, buttons, generic UI labels
+ products - catalog/list/detail strings
+3.3 Two languages (required)
+Use English plus one additional locale. Recommended second locale: Hebrew (he) for RTL practice (optional).
+Deliverables:
+ README: which locales and namespaces you used.
+ Screenshot: the same page shown in both languages.
+4. Step 2 - Use i18n for real (required features)
+Translate visible UI strings on:
+ Header/navigation
+ Products list page (loading, empty state, error state, search label/placeholder, etc.)
+ Product detail page (loading, error, buttons/labels that exist in your UI)
+Your translations must demonstrate:
+ Interpolation: e.g. "Showing {{count}} products"
+ Pluralization: e.g. "1 product" vs "2 products"
+ One <Trans /> usage: embed formatting or a link inside a translation
+Deliverable: In README or notes, list 3 example keys (one per requirement) and where they appear in the
+UI.
+4
+5. Step 3 - Language Switcher + Persistence
+ Add a language switcher in the header (buttons or dropdown).
+ Switching language updates the UI immediately.
+ Persist the selected language in localStorage and restore it on page reload.
+ Default to English (en) when nothing is stored.
+Deliverables:
+ Two screenshots (or a short GIF): switch language + refresh and it stays.
+ 3-5 lines describing how you persist and restore the language (plain language, not code).
+6. Step 4 - RTL Mode (only if your second language is RTL)
+If you chose a right-to-left language (e.g., he/ar):
+ When RTL language is active: set document.documentElement.dir = "rtl" and
+document.documentElement.lang to the locale code.
+ Fix at least 2 layout issues caused by RTL (alignment, spacing, icon placement, etc.).
+If you did not choose an RTL language: add a one-line note in README that RTL was skipped.
+Deliverables:
+ Screenshot of RTL mode (if applicable).
+ Two bullets: "RTL issue -> fix".
+7. Step 5 - PrimeReact Setup + DataTable Conversion
+7.1 Install PrimeReact
+ Install PrimeReact and PrimeIcons.
+ Ensure required CSS is included so PrimeReact components render correctly.
+7.2 Convert products list page to PrimeReact DataTable
+Replace the products list UI with PrimeReact DataTable driven directly from TanStack Query data.
+DataTable must include these columns:
+ Title
+ Price
+ Category
+ Image (cell template)
+ Action column: "View details" OR row-click navigation
+Also implement at least 2 DataTable features:
+ Sorting (e.g., price or title)
+5
+ Pagination OR filtering/search integration (basic is enough)
+Deliverables:
+ Screenshot of the DataTable with multiple rows visible.
+ Short note: which 2 DataTable features you implemented.
+8. Step 6 - PrimeReact Theme Switch + Persistence
+ Add a theme switcher in the header.
+ Provide at least 2 PrimeReact themes (for example: one light + one dark).
+ Switching theme must visibly affect PrimeReact components (DataTable/buttons/inputs).
+ Persist the selected theme in localStorage and restore it on reload.
+Deliverables:
+ Two screenshots: the same screen in Theme A and Theme B.
+ README: localStorage key + default theme name.
+Bonus Tasks (optional, pick 0-2)
+ Bonus A: Locale-aware formatting for price using Intl.NumberFormat (price looks correct per locale).
+ Bonus B: Translate query error/empty/loading UI text thoroughly (no raw English strings).
+Deliverable: For any bonus: 1 screenshot or 3-5 lines describing what you added.
+Submission
+ Push your branch and open a PR (or submit repo link) as you usually do.
+ README must include the Step 0 note plus the deliverables listed in each step.
+ Attach screenshots/GIFs in README or in a /docs folder with links.
+6
