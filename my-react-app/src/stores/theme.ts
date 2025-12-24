@@ -5,6 +5,7 @@ export type Theme = 'light' | 'dark'
 
 type ThemeStore = {
   theme: Theme
+  // eslint-disable-next-line no-unused-vars
   setTheme: (theme: Theme) => void
   toggleTheme: () => void
 }
@@ -22,4 +23,3 @@ export const useThemeStore = create<ThemeStore>()(
     { name: 'theme' },
   ),
 )
-

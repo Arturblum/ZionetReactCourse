@@ -14,7 +14,9 @@ type AddNotificationInput = Omit<Notification, 'id'> & { id?: string }
 
 type NotificationsStore = {
   notifications: Notification[]
+  // eslint-disable-next-line no-unused-vars
   addNotification: (notification: AddNotificationInput) => string
+  // eslint-disable-next-line no-unused-vars
   removeNotification: (id: string) => void
   clearNotifications: () => void
 }

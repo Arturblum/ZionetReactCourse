@@ -1,13 +1,14 @@
 import { useEffect } from 'react'
-import { useNotificationsStore } from '../stores/notifications'
-import type { Notification } from '../stores/notifications'
+import { useNotificationsStore, type Notification } from '../stores/notifications'
+
+type RemoveNotification = ReturnType<typeof useNotificationsStore.getState>['removeNotification']
 
 function ToastItem({
   toast,
   onClose,
 }: {
   toast: Notification
-  onClose: (id: string) => void
+  onClose: RemoveNotification
 }) {
   useEffect(() => {
     if (!toast.timeout) return
@@ -39,4 +40,3 @@ export default function ToastHost() {
     </ol>
   )
 }
-
