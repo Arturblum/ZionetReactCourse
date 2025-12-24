@@ -1,6 +1,6 @@
 import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from 'react'
 import { useEffect, useState } from 'react'
-import { useNotificationsStore } from '../stores/notifications'
+import { useNotificationsStore } from '../stores'
 
 type Contact = {
   id: string
@@ -16,7 +16,6 @@ function CheckInForm() {
   const [email, setEmail] = useState('')
   const [phone, setPhone] = useState('')
   const [contacts, setContacts] = useState<Contact[]>([])
-  const [countLabel, setCountLabel] = useState('0 contacts')
   const addNotification = useNotificationsStore((s) => s.addNotification)
 
   useEffect(() => {
@@ -25,10 +24,7 @@ function CheckInForm() {
       : 'Contact form'
   }, [contacts])
 
-  useEffect(() => {
-    const label = contacts.length === 1 ? '1 contact' : `${contacts.length} contacts`
-    setCountLabel(label)
-  }, [contacts])
+  const countLabel = contacts.length === 1 ? '1 contact' : `${contacts.length} contacts`
 
   const handleInputChange =
     (setter: Dispatch<SetStateAction<string>>) =>

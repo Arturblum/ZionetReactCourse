@@ -1,13 +1,9 @@
 import { Link, Route, Routes } from 'react-router-dom'
 import './App.css'
-import About from './pages/About'
-import CheckInForm from './pages/CheckInForm'
-import { ProductDetail } from './pages/ProductDetail'
-import Products from './pages/Products'
-import CartSidebar from './components/CartSidebar'
-import { useCart } from './contexts/CartContext'
-import ToastHost from './components/ToastHost'
-import { useThemeStore } from './stores/theme'
+import { CartSidebar, ToastHost } from './components'
+import { useCart } from './contexts'
+import { About, CheckInForm, ProductDetail, Products } from './pages'
+import { useThemeStore } from './stores'
 import { useEffect } from 'react'
 
 function App() {

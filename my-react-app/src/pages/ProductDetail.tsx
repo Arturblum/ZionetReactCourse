@@ -1,9 +1,9 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { addProductToCart, fetchProduct, type Product } from '../api/products'
-import { useCart } from '../contexts/CartContext'
-import { useNotificationsStore } from '../stores/notifications'
+import { addProductToCart, fetchProduct, type Product } from '../api'
+import { useCart } from '../contexts'
+import { useNotificationsStore } from '../stores'
 
 export const ProductDetail = () => {
   const { id } = useParams<{ id: string }>()
@@ -71,7 +71,7 @@ export const ProductDetail = () => {
       message: error?.message ?? 'Failed to load product.',
       timeout: 6000,
     })
-  }, [isError, error, addNotification])
+  }, [isError, error, id, addNotification])
 
   if (!id) {
     return <p>Missing product id.</p>

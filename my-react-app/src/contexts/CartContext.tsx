@@ -1,12 +1,5 @@
 import { createContext, useContext } from 'react'
-
-export type CartItem = {
-  id: number
-  title: string
-  price: number
-  thumbnail: string
-  quantity: number
-}
+import type { CartItem } from '../types'
 
 export type CartContextValue = {
   isOpen: boolean

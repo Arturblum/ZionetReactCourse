@@ -1,4 +1,4 @@
-import { useNotificationsStore } from '../stores/notifications'
+import { useNotificationsStore } from '../stores'
 
 function About() {
   const addNotification = useNotificationsStore((s) => s.addNotification)

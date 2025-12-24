@@ -1,8 +1,9 @@
 import type { ReactNode } from 'react'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
-import { CartContext, type CartItem } from '../contexts/CartContext'
-import useLocalStorageState from '../hooks/useLocalStorageState'
-import { useNotificationsStore } from '../stores/notifications'
+import { CartContext } from '../contexts'
+import { useNotificationsStore } from '../stores'
+import type { CartItem } from '../types'
+import { useLocalStorageState } from '../hooks'
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [isOpen, setIsOpen] = useLocalStorageState('cart-open', false, {

@@ -1,12 +1,8 @@
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
-import {
-  fetchProducts,
-  type ProductSummary,
-  type ProductsResponse,
-} from '../api/products'
-import { useNotificationsStore } from '../stores/notifications'
+import { fetchProducts, type ProductSummary, type ProductsResponse } from '../api'
+import { useNotificationsStore } from '../stores'
 
 const PAGE_SIZE = 5
 

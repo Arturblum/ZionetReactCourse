@@ -1,14 +1,7 @@
 import { create } from 'zustand'
+import type { Notification } from '../types'
 
-export type NotificationType = 'success' | 'error' | 'info'
-
-export type Notification = {
-  id: string
-  type: NotificationType
-  message: string
-  timestamp?: number
-  timeout?: number
-}
+export type { Notification, NotificationType } from '../types'
 
 type AddNotificationInput = Omit<Notification, 'id'> & { id?: string }
 

@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import { useCart } from '../contexts/CartContext'
+import { useCart } from '../contexts'
 
 const CartSidebar = () => {
   const { isOpen, items, close, removeItem, clear } = useCart()
