@@ -1,11 +1,20 @@
 import { Link, Route, Routes } from 'react-router-dom'
 import './App.css'
-import About from './About'
-import CheckInForm from './CheckInForm'
-import ProductDetail from './pages/ProductDetail'
-import Products from './pages/Products'
+import { CartSidebar, ToastHost } from './components'
+import { useCart } from './contexts'
+import { About, CheckInForm, ProductDetail, Products } from './pages'
+import { useThemeStore } from './stores'
+import { useEffect } from 'react'
 
 function App() {
+  const { isOpen, toggle, items } = useCart()
+  const theme = useThemeStore((s) => s.theme)
+  const toggleTheme = useThemeStore((s) => s.toggleTheme)
+
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme
+  }, [theme])
+
   return (
     <div className="app-shell">
       <header className="nav">
@@ -14,6 +23,17 @@ function App() {
           <Link to="/">Home</Link>
           <Link to="/about">About</Link>
           <Link to="/products">Products</Link>
+          <button
+            type="button"
+            onClick={toggle}
+            aria-expanded={isOpen}
+            aria-controls="global-cart"
+          >
+            Cart ({items.length})
+          </button>
+          <button type="button" onClick={toggleTheme}>
+            Theme: {theme}
+          </button>
         </nav>
       </header>
 
@@ -23,6 +43,8 @@ function App() {
         <Route path="/products" element={<Products />} />
         <Route path="/products/:id" element={<ProductDetail />} />
       </Routes>
+      <CartSidebar />
+      <ToastHost />
     </div>
   )
 }

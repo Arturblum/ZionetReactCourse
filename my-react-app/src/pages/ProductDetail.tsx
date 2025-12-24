@@ -1,9 +1,14 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
-import { fetchProduct, type Product } from '../api/products'
+import { addProductToCart, fetchProduct, type Product } from '../api'
+import { useCart } from '../contexts'
+import { useNotificationsStore } from '../stores'
 
-const ProductDetail = () => {
+export const ProductDetail = () => {
   const { id } = useParams<{ id: string }>()
+  const { addItem } = useCart()
+  const addNotification = useNotificationsStore((s) => s.addNotification)
 
   const {
     data,
@@ -20,6 +25,53 @@ const ProductDetail = () => {
     },
     enabled: Boolean(id),
   })
+
+  const addToCartMutation = useMutation({
+    mutationFn: async () => {
+      if (!data) {
+        throw new Error('Missing product.')
+      }
+      return addProductToCart(data.id, 1)
+    },
+    onSuccess: () => {
+      if (!data) return
+      addItem(
+        {
+          id: data.id,
+          title: data.title,
+          price: data.price,
+          thumbnail: data.thumbnail,
+        },
+        { notify: false },
+      )
+      addNotification({
+        type: 'success',
+        message: 'Product added to cart',
+        timeout: 3000,
+      })
+    },
+    onError: (mutationError) => {
+      addNotification({
+        id: `add-to-cart-error:${id ?? 'missing-id'}`,
+        type: 'error',
+        message:
+          mutationError instanceof Error
+            ? mutationError.message
+            : 'Failed to add product to cart.',
+        timeout: 6000,
+      })
+    },
+  })
+
+  useEffect(() => {
+    if (!isError) return
+    addNotification({
+      id: `product-load-error:${id ?? 'missing-id'}`,
+      type: 'error',
+      message: error?.message ?? 'Failed to load product.',
+      timeout: 6000,
+    })
+  }, [isError, error, id, addNotification])
 
   if (!id) {
     return <p>Missing product id.</p>
@@ -46,8 +98,13 @@ const ProductDetail = () => {
       <p>
         <strong>${data?.price}</strong>
       </p>
+      <button
+        type="button"
+        onClick={() => addToCartMutation.mutate()}
+        disabled={!data || addToCartMutation.isPending}
+      >
+        {addToCartMutation.isPending ? 'Adding...' : 'Add to cart'}
+      </button>
     </section>
   )
 }
-
-export default ProductDetail
