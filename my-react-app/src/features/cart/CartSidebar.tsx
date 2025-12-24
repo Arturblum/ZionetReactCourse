@@ -1,7 +1,7 @@
 import { useEffect, useMemo } from 'react'
 import { useCart } from './CartContext'
 
-export default function CartSidebar() {
+const CartSidebar = () => {
   const { isOpen, items, close, removeItem, clear } = useCart()
 
   useEffect(() => {
@@ -79,3 +79,4 @@ export default function CartSidebar() {
   )
 }
 
+export default CartSidebar
