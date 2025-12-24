@@ -1,6 +1,6 @@
 import type { ChangeEvent, Dispatch, FormEvent, SetStateAction } from 'react'
 import { useEffect, useState } from 'react'
-import { useNotificationsStore } from './stores/notifications'
+import { useNotificationsStore } from '../stores/notifications'
 
 type Contact = {
   id: string
