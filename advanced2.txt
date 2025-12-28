@@ -1,0 +1,62 @@
+Advanced 2 – Documentation + Homework
+Testing (Playwright)
+ 
+IMPORTANT:
+- The Advanced 2 homework becomes mandatory only AFTER the Advanced 2 lecture.
+- You may submit the homework no later than Thursday, 29.12.25.
+ Submissions after this date will NOT be checked.
+ The earlier you submit, the better (more time for review and fixes).
+- If you have questions while working:
+ Bring them with you to class
+ We will review everything together
+Good luck and enjoy! 
+Homework Submission Rules (Read Carefully)
+Pull Request Policy
+ Every homework assignment from each new session must be submitted in a separate 
+Pull Request.
+ PR name format (mandatory):
+advanced-<number>/<topic>
+Example:
+advanced-2/playwright
+Submission Process
+1. Create a new Pull Request for every new session’s homework.
+2. We will review the PR and leave comments.
+3. You must fix everything we commented — no exceptions.
+4. After applying all requested fixes, you may merge the PR into main yourself.
+5. We will NOT review the same PR twice.
+o It is your responsibility to apply the feedback correctly before merging.
+2
+Homework Submission:
+The homework submission link is always the same:
+https://forms.office.com/r/83sMHrSG2F
+Pre-Lecture Preparation (Required)
+Before attending this lecture, you are expected to independently explore the different types of 
+frontend testing.
+You do not need to master them — only to arrive with basic familiarity.
+Focus on:
+ Unit testing
+ Component testing
+ Integration testing
+ End-to-End (E2E) testing
+For each type, try to understand:
+ What is being tested
+ At what level it runs (function, component, full app)
+ One common tool used for it
+ One advantage and one limitation
+You are not expected to write code at this stage.
+The purpose is to ensure that during the lecture:
+ Concepts will sound familiar
+ Comparisons will make sense
+ You can ask better questions
+3
+Useful Documentation + Tutorials
+Playwright Documentation
+https://playwright.dev/docs/intro
+Playwright Tutorials
+https://www.youtube.com/watch?v=wGr5rz8WGCE
+https://www.youtube.com/watch?v=3NW0Mz943_E
+Homework
+Create 3-5 Playwright tests for your own project (follow the rules & guidelines from the lecture)
+Submission
+ Push your branch and open a PR (or submit repo link) as you usually do.
+ Attach screenshots/GIFs in the PR’s description
