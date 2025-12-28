@@ -1,0 +1,68 @@
+{
+  "common": {
+    "header": {
+      "title": "פרטי קשר",
+      "home": "דף הבית",
+      "about": "אודות",
+      "products": "מוצרים",
+      "cart": "עגלה ({{count}})",
+      "theme": "ערכת נושא: {{theme}}",
+      "language": "שפה: {{language}}"
+    },
+    "button": {
+      "viewDetails": "צפה בפרטים",
+      "addToCart": "הוסף לעגלה",
+      "close": "סגור",
+      "checkout": "לתשלום",
+      "remove": "הסר",
+      "clear": "נקה"
+    },
+    "cart": {
+      "title": "עגלה",
+      "empty": "העגלה שלך ריקה.",
+      "quantity": "כמות",
+      "total": "סה\"כ"
+    },
+    "loading": "טוען...",
+    "error": "אירעה שגיאה",
+    "emptyState": "לא נמצאו פריטים"
+  },
+  "products": {
+    "title": "מוצרים",
+    "testErrorToast": "בדיקת הודעת שגיאה: <0>פתח מוצר מזויף</0>",
+    "simulateError": "הדמיית שגיאת API במוצרים",
+    "stopSimulateError": "עצור מצב שגיאת מוצרים",
+    "loadingList": "טוען מוצרים...",
+    "listError": "משהו השתבש בזמן טעינת המוצרים.",
+    "loadMore": "טען עוד",
+    "loadingMore": "טוען...",
+    "noMoreProducts": "אין עוד מוצרים",
+    "backToProducts": "חזרה למוצרים",
+    "missingId": "מזהה מוצר חסר.",
+    "loadingDetail": "טוען מוצר...",
+    "detailError": "משהו השתבש בזמן טעינת מוצר זה.",
+    "addToCartSuccess": "המוצר נוסף לעגלה",
+    "addToCartFailed": "הוספת המוצר לעגלה נכשלה.",
+    "addingToCart": "מוסיף...",
+    "missingProduct": "מוצר חסר.",
+    "showingCount": "מציג מוצר אחד",
+    "showingCount_other": "מציג {{count}} מוצרים",
+    "searchLabel": "חיפוש",
+    "searchPlaceholder": "חיפוש מוצרים...",
+    "noSearchResults": "לא נמצאו מוצרים המתאימים לחיפוש.",
+    "productCount": "מוצר אחד",
+    "productCount_other": "{{count}} מוצרים",
+    "details": {
+      "title": "פרטי מוצר",
+      "price": "מחיר",
+      "category": "קטגוריה",
+      "description": "תיאור",
+      "notFound": "המוצר לא נמצא"
+    },
+    "errors": {
+      "loadFailed": "טעינת המוצרים נכשלה. אנא נסה שוב.",
+      "detailLoadFailed": "טעינת פרטי המוצר נכשלה."
+    },
+    "emptyList": "אין מוצרים זמינים כרגע."
+  }
+}

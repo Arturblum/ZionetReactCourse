@@ -3,11 +3,9 @@ import './App.css'
 import { CartSidebar, ToastHost } from './components'
 import { useCart } from './contexts'
 import { About, CheckInForm, ProductDetail, Products } from './pages'
-import { useThemeStore, loadPrimeReactTheme, type PrimeReactTheme } from './stores'
-import { useEffect } from 'react'
+import { useThemeStore, type PrimeReactTheme } from './stores'
 import { useTranslation } from 'react-i18next'
-
-const LANGUAGE_STORAGE_KEY = 'app-language'
+import { saveLanguagePreference } from './providers'
 
 const PRIMEREACT_THEMES: { label: string; value: PrimeReactTheme }[] = [
   { label: 'Lara Light Blue', value: 'lara-light-blue' },
@@ -24,37 +22,14 @@ function App() {
   const setPrimeTheme = useThemeStore((s) => s.setPrimeTheme)
   const { t, i18n } = useTranslation(['common'])
 
-  // Restore language from localStorage on mount
-  useEffect(() => {
-    const savedLanguage = localStorage.getItem(LANGUAGE_STORAGE_KEY)
-    if (savedLanguage && savedLanguage !== i18n.language) {
-      i18n.changeLanguage(savedLanguage)
-    }
-  }, [])
-
-  useEffect(() => {
-    document.documentElement.dataset.theme = theme
-  }, [theme])
-
-  // Set RTL mode for Hebrew language
-  useEffect(() => {
-    const isRTL = i18n.language === 'he'
-    document.documentElement.dir = isRTL ? 'rtl' : 'ltr'
-    document.documentElement.lang = i18n.language
-  }, [i18n.language])
-
   const switchLanguage = () => {
     const newLanguage = i18n.language === 'en' ? 'he' : 'en'
     i18n.changeLanguage(newLanguage)
-    localStorage.setItem(LANGUAGE_STORAGE_KEY, newLanguage)
+    saveLanguagePreference(newLanguage)
   }
 
   const handlePrimeThemeChange = (newTheme: PrimeReactTheme) => {
     setPrimeTheme(newTheme)
-    loadPrimeReactTheme(newTheme)
-    // Update data-theme attribute for entire app styling
-    const isLight = newTheme.includes('light')
-    document.documentElement.dataset.theme = isLight ? 'light' : 'dark'
   }
 
   return (

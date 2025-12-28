@@ -200,6 +200,8 @@ const Products = () => {
         <DataTable
           value={filteredProducts}
           paginator
+          scrollable
+          scrollHeight="420px"
           rows={rowsPerPage}
           first={currentPage * rowsPerPage}
           onPage={(e) => {

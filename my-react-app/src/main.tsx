@@ -9,25 +9,23 @@ import 'primereact/resources/primereact.min.css'
 import 'primeicons/primeicons.css'
 
 import './index.css'
-import './i18n' // Initialize i18n
 import App from './App'
-import { CartProvider } from './providers'
-import { initializeTheme, loadPrimeReactTheme } from './stores/theme'
-
-// Initialize theme on app startup (sets data-theme attribute and loads CSS)
-const savedTheme = initializeTheme()
-loadPrimeReactTheme(savedTheme)
+import { CartProvider, I18nProvider, ThemeProvider } from './providers'
 
 const queryClient = new QueryClient()
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <CartProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
-      </CartProvider>
+      <I18nProvider>
+        <ThemeProvider>
+          <CartProvider>
+            <BrowserRouter>
+              <App />
+            </BrowserRouter>
+          </CartProvider>
+        </ThemeProvider>
+      </I18nProvider>
       <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </StrictMode>,
