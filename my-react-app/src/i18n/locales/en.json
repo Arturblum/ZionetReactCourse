@@ -1,0 +1,68 @@
+{
+  "common": {
+    "header": {
+      "title": "Contact info",
+      "home": "Home",
+      "about": "About",
+      "products": "Products",
+      "cart": "Cart ({{count}})",
+      "theme": "Theme: {{theme}}",
+      "language": "Language: {{language}}"
+    },
+    "button": {
+      "viewDetails": "View Details",
+      "addToCart": "Add to Cart",
+      "close": "Close",
+      "checkout": "Checkout",
+      "remove": "Remove",
+      "clear": "Clear"
+    },
+    "cart": {
+      "title": "Cart",
+      "empty": "Your cart is empty.",
+      "quantity": "Qty",
+      "total": "Total"
+    },
+    "loading": "Loading...",
+    "error": "An error occurred",
+    "emptyState": "No items found"
+  },
+  "products": {
+    "title": "Products",
+    "testErrorToast": "Test error toast: <0>Open a fake product</0>",
+    "simulateError": "Simulate products API error",
+    "stopSimulateError": "Stop products error mode",
+    "loadingList": "Loading products...",
+    "listError": "Something went wrong while loading products.",
+    "loadMore": "Load more",
+    "loadingMore": "Loading...",
+    "noMoreProducts": "No more products",
+    "backToProducts": "Back to products",
+    "missingId": "Missing product id.",
+    "loadingDetail": "Loading product...",
+    "detailError": "Something went wrong while loading this product.",
+    "addToCartSuccess": "Product added to cart",
+    "addToCartFailed": "Failed to add product to cart.",
+    "addingToCart": "Adding...",
+    "missingProduct": "Missing product.",
+    "showingCount": "Showing {{count}} product",
+    "showingCount_other": "Showing {{count}} products",
+    "searchLabel": "Search",
+    "searchPlaceholder": "Search products...",
+    "noSearchResults": "No products match your search.",
+    "productCount": "{{count}} product",
+    "productCount_other": "{{count}} products",
+    "details": {
+      "title": "Product Details",
+      "price": "Price",
+      "category": "Category",
+      "description": "Description",
+      "notFound": "Product not found"
+    },
+    "errors": {
+      "loadFailed": "Failed to load products. Please try again.",
+      "detailLoadFailed": "Failed to load product details."
+    },
+    "emptyList": "No products available at the moment."
+  }
+}
