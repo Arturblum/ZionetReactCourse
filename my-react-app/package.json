@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@tanstack/react-query": "^5.90.12",
@@ -28,6 +29,7 @@
     "@types/react-dom": "^19.2.3",
     "@typescript-eslint/parser": "^8.48.1",
     "@vitejs/plugin-react": "^5.1.1",
+    "@playwright/test": "^1.54.2",
     "chrome-remote-interface": "^0.33.3",
     "eslint": "^9.39.1",
     "eslint-plugin-react-hooks": "^7.0.1",
