@@ -119,6 +119,21 @@
   font: inherit;
 }
 
+.field input:not([type='checkbox']):not([type='radio']):not([type='range']):focus-visible,
+.field select:focus-visible,
+.field textarea:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.35);
+  border-color: var(--primary);
+}
+
+.field input[type='checkbox']:focus-visible,
+.field input[type='radio']:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.35);
+  border-radius: 4px;
+}
+
 .field textarea {
   resize: vertical;
 }

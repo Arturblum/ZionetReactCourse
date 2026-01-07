@@ -57,6 +57,20 @@ const initialValues: CheckInFormValues = {
   guests: 1,
 }
 
+const storageKey = 'advanced3-checkin-form'
+
+const getStoredDefaults = (): CheckInFormValues => {
+  if (typeof window === 'undefined') return initialValues
+  try {
+    const raw = window.localStorage.getItem(storageKey)
+    if (!raw) return initialValues
+    const data = JSON.parse(raw) as Partial<CheckInFormValues>
+    return { ...initialValues, ...data }
+  } catch {
+    return initialValues
+  }
+}
+
 const checkInFormSchema = z
   .object({
     firstName: z.string().min(1, 'First name is required.'),
@@ -91,10 +105,11 @@ function CheckInForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid },
+    formState: { errors, isValid, isSubmitting },
     reset,
+    watch,
   } = useForm<CheckInFormValues>({
-    defaultValues: initialValues,
+    defaultValues: getStoredDefaults(),
     mode: 'onBlur',
     resolver: zodResolver(checkInFormSchema),
   })
@@ -105,9 +120,18 @@ function CheckInForm() {
       : 'Contact form'
   }, [contacts])
 
+  useEffect(() => {
+    const subscription = watch((values) => {
+      const { password, confirmPassword, ...safeValues } = values
+      if (typeof window === 'undefined') return
+      window.localStorage.setItem(storageKey, JSON.stringify(safeValues))
+    })
+    return () => subscription.unsubscribe()
+  }, [watch])
+
   const countLabel = contacts.length === 1 ? '1 contact' : `${contacts.length} contacts`
 
-  const onSubmit = (values: CheckInFormValues) => {
+  const onSubmit = async (values: CheckInFormValues) => {
     const trimmedEmail = values.email.trim()
     const trimmedFirst = values.firstName.trim()
     const contact: Contact = {
@@ -127,6 +151,8 @@ function CheckInForm() {
       guests: values.guests,
     }
 
+    await new Promise((resolve) => setTimeout(resolve, 800))
+    console.log('Submitted check-in form:', values)
     setContacts((current) => [contact, ...current])
     reset(initialValues)
     addNotification({
@@ -358,8 +384,8 @@ function CheckInForm() {
           {errors.guests && <p className="field-error">{errors.guests.message}</p>}
         </div>
 
-        <button type="submit" disabled={!isValid}>
-          Save contact
+        <button type="submit" disabled={!isValid || isSubmitting}>
+          {isSubmitting ? 'Saving...' : 'Save contact'}
         </button>
       </form>
 
