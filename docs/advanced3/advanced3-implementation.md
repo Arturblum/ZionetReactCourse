@@ -6,6 +6,7 @@
 3. Added accessible focus-visible styles to form controls without layout shift.
 4. Added async submit simulation and console logging on submit.
 5. Cached non-sensitive form data in localStorage and restored it on load.
+6. Added custom-styled radio buttons and checkbox with accessible hidden inputs.
 
 ## Screenshot
 ![Advanced 3 form screenshot](./advanced3-form.png)
@@ -26,3 +27,6 @@
 
 ### Task 8 LocalStorage Persistence
 ![Task 8 localStorage screenshot](./advanced3-task8-localstorage.png)
+
+### Bonus Custom Controls
+![Bonus custom controls screenshot](./advanced3-bonus-custom-controls.png)

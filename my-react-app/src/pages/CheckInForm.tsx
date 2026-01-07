@@ -276,32 +276,38 @@ function CheckInForm() {
         <fieldset className="field field--full">
           <legend>Preferred contact method</legend>
           <div className="choice-group">
-            <label className="choice-row" htmlFor="contactEmail">
+            <label className="choice-row choice-custom" htmlFor="contactEmail">
               <input
                 id="contactEmail"
+                className="visually-hidden"
                 type="radio"
                 value="email"
                 {...register('contactMethod')}
               />
-              Email
+              <span className="choice-control" aria-hidden="true" />
+              <span>Email</span>
             </label>
-            <label className="choice-row" htmlFor="contactPhone">
+            <label className="choice-row choice-custom" htmlFor="contactPhone">
               <input
                 id="contactPhone"
+                className="visually-hidden"
                 type="radio"
                 value="phone"
                 {...register('contactMethod')}
               />
-              Phone call
+              <span className="choice-control" aria-hidden="true" />
+              <span>Phone call</span>
             </label>
-            <label className="choice-row" htmlFor="contactSms">
+            <label className="choice-row choice-custom" htmlFor="contactSms">
               <input
                 id="contactSms"
+                className="visually-hidden"
                 type="radio"
                 value="sms"
                 {...register('contactMethod')}
               />
-              SMS
+              <span className="choice-control" aria-hidden="true" />
+              <span>SMS</span>
             </label>
           </div>
           {errors.contactMethod && (
@@ -310,13 +316,15 @@ function CheckInForm() {
         </fieldset>
 
         <div className="field">
-          <label className="choice-row" htmlFor="subscribe">
+          <label className="choice-row choice-custom" htmlFor="subscribe">
             <input
               id="subscribe"
+              className="visually-hidden"
               type="checkbox"
               {...register('subscribe')}
             />
-            Subscribe to product updates
+            <span className="choice-control" aria-hidden="true" />
+            <span>Subscribe to product updates</span>
           </label>
           {errors.subscribe && <p className="field-error">{errors.subscribe.message}</p>}
         </div>
