@@ -6,3 +6,5 @@
 
 ## Screenshot
 ![Advanced 3 form screenshot](./advanced3-form.png)
+### Task 3 Validation
+![Task 3 validation screenshot](./advanced3-task3-validation.png)
