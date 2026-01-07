@@ -35,6 +35,13 @@
   transition: all 0.2s;
 }
 
+.nav-links .nav-tab--form {
+  background: linear-gradient(135deg, #ff62b4, #8a5bff);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  box-shadow: 0 0 14px rgba(255, 98, 180, 0.35);
+}
+
 .nav-links button {
   cursor: pointer;
   font: inherit;
@@ -45,6 +52,12 @@
   background: var(--surface-strong);
   border-color: var(--primary);
   color: var(--primary);
+}
+
+.nav-links .nav-tab--form:hover {
+  background: linear-gradient(135deg, #ff7cc2, #a06bff);
+  border-color: rgba(255, 255, 255, 0.4);
+  color: #fff;
 }
 
 .card {
@@ -81,6 +94,8 @@
 .form {
   display: grid;
   gap: 0.75rem;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: start;
 }
 
 .field {
@@ -92,7 +107,9 @@
   font-weight: 600;
 }
 
-.field input {
+.field input:not([type='checkbox']):not([type='radio']):not([type='range']),
+.field select,
+.field textarea {
   width: 100%;
   padding: 0.6rem 0.75rem;
   border-radius: 8px;
@@ -100,6 +117,55 @@
   background: var(--surface);
   color: inherit;
   font: inherit;
+}
+
+.field textarea {
+  resize: vertical;
+}
+
+.field input[type='range'] {
+  width: 100%;
+}
+
+.field-error {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #ff8a8a;
+}
+
+.field [aria-invalid='true'] {
+  border-color: rgba(255, 120, 120, 0.6);
+}
+
+.choice-group {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.choice-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.field legend {
+  font-weight: 600;
+  margin-bottom: 0.35rem;
+}
+
+.form > button {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+
+.form .field--full {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 640px) {
+  .form {
+    grid-template-columns: 1fr;
+  }
 }
 
 button {

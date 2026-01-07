@@ -1,0 +1,83 @@
+Advanced 3 – Homework
+React Forms
+(React Hook Form + Zod / Formik + Yup)
+ 
+IMPORTANT:
+- The Advanced 3 homework becomes mandatory only AFTER the Advanced 3 lecture.
+- You may submit the homework no later than Thursday, 8.1.26.
+ Submissions after this date will NOT be checked.
+ The earlier you submit, the better (more time for review and fixes).
+- If you have questions while working:
+ Bring them with you to class
+ We will review everything together
+Good luck and enjoy! 
+Homework Submission Rules (Read Carefully)
+Pull Request Policy
+ Every homework assignment from each new session must be submitted in a separate 
+Pull Request.
+ PR name format (mandatory):
+advanced-<number>/<topic>
+Example:
+advanced-3/forms
+2
+Submission Process
+1. Create a new Pull Request for every new session’s homework.
+2. We will review the PR and leave comments.
+3. You must fix everything we commented — no exceptions.
+4. After applying all requested fixes, you may merge the PR into main yourself.
+5. We will NOT review the same PR twice.
+o It is your responsibility to apply the feedback correctly before merging.
+Homework Submission:
+The homework submission link is always the same:
+https://forms.office.com/r/83sMHrSG2F
+Useful Documentation
+Formik Documentation
+https://formik.org/docs/overview
+React Hook Form Documentation
+https://react-hook-form.com/get-started
+3
+Homework
+Create a form with 10–15 fields.
+Form Requirements
+- Use the main types of form controls:
+ text inputs
+ checkbox
+ radio buttons
+ range slider
+ select
+ textarea
+ any other relevant input types
+- The form must include:
+ password and confirm password fields
+ email field
+- Implement field validation using one form library of your choice
+ onBlur validation is preferred
+- Validation errors must be displayed to the user
+- The Submit button must be disabled if the form is invalid
+- The form must be accessible (a11y)
+- Focus must be visually visible on interactive elements
+ Focus styles must not break or shift the layout
+- On submit:
+ simulate an asynchronous request (fake delay)
+ log the submitted form data to the console
+- The form must cache non-sensitive data in localStorage
+ Sensitive data (e.g., passwords) must NOT be stored
+4
+⭐ Bonus Task (Optional)
+- Create custom-styled radio buttons or checkboxes
+- Hide the native controls using a visually-hidden technique
+- Render custom UI elements instead
+- The controls must remain fully accessible:
+ keyboard navigable
+ screen reader friendly
+⭐⭐ Advanced Bonus Task (Optional)
+- Animate the appearance and disappearance of validation errors
+- Error animations must not cause layout shifts
+- The overall form layout should remain stable
+Notes
+ Pay attention to UX details and accessibility
+ Prefer clarity and correctness over visual complexity
+ The goal is to apply best practices discussed during the lecture
+Submission
+ Push your branch and open a PR (or submit repo link) as you usually do.
+ Attach screenshots/GIFs in the PR’s description

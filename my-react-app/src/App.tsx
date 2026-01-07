@@ -37,7 +37,9 @@ function App() {
       <header className="nav">
         <h1>{t('header.title')}</h1>
         <nav className="nav-links">
-          <Link to="/">{t('header.home')}</Link>
+          <Link className="nav-tab nav-tab--form" to="/">
+            Form
+          </Link>
           <Link to="/about">{t('header.about')}</Link>
           <Link to="/products">{t('header.products')}</Link>
           <button
