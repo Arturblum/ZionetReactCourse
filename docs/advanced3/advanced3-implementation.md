@@ -11,3 +11,6 @@
 
 ### Task 4 Error Display
 ![Task 4 error display screenshot](./advanced3-task4-errors.png)
+
+### Task 5 Disabled Submit
+![Task 5 disabled submit screenshot](./advanced3-task5-disabled.png)
