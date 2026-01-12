@@ -9,7 +9,7 @@ i18n
     resources: { en, he },
     lng: 'en',
     fallbackLng: 'en',
-    ns: ['common', 'products'],
+    ns: ['common', 'products', 'checkin'],
     defaultNS: 'common',
     interpolation: {
       escapeValue: false,

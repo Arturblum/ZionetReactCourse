@@ -64,5 +64,97 @@
       "detailLoadFailed": "Failed to load product details."
     },
     "emptyList": "No products available at the moment."
+  },
+  "checkin": {
+    "title": "Simple contact form",
+    "subtitle": "Complete the check-in details below.",
+    "contactCount": "{{count}} contact",
+    "contactCount_other": "{{count}} contacts",
+    "requiredNote": "Fields marked Required must be completed before saving.",
+    "required": "Required",
+    "optional": "Optional",
+    "saveContact": "Save contact",
+    "savingContact": "Saving...",
+    "contactSaved": "Contact saved.",
+    "errorsHeading": "Please fix the highlighted fields.",
+    "fields": {
+      "firstName": {
+        "label": "First name",
+        "placeholder": "Jhon",
+        "required": "First name is required."
+      },
+      "lastName": {
+        "label": "Last name",
+        "placeholder": "Doe"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "email@example.com",
+        "required": "Email is required.",
+        "invalid": "Enter a valid email address."
+      },
+      "phone": {
+        "label": "Phone",
+        "placeholder": "(555) 123-4567"
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "At least 8 characters",
+        "min": "Password must be at least 8 characters."
+      },
+      "confirmPassword": {
+        "label": "Confirm password",
+        "placeholder": "Re-enter password",
+        "required": "Please confirm your password.",
+        "mismatch": "Passwords do not match."
+      },
+      "company": {
+        "label": "Company",
+        "placeholder": "Zionet"
+      },
+      "role": {
+        "label": "Role",
+        "options": {
+          "designer": "Designer",
+          "engineer": "Engineer",
+          "product": "Product",
+          "other": "Other"
+        }
+      },
+      "contactMethod": {
+        "legend": "Preferred contact method",
+        "options": {
+          "email": "Email",
+          "phone": "Phone call",
+          "sms": "SMS"
+        }
+      },
+      "subscribe": {
+        "label": "Subscribe to product updates"
+      },
+      "experience": {
+        "label": "Experience level",
+        "rangeHint": "(0-10)",
+        "min": "Select 0-10.",
+        "max": "Select 0-10."
+      },
+      "bio": {
+        "label": "Short bio",
+        "placeholder": "A couple of sentences about your experience."
+      },
+      "website": {
+        "label": "Portfolio website",
+        "placeholder": "https://example.com",
+        "invalid": "Enter a valid URL."
+      },
+      "startDate": {
+        "label": "Preferred start date"
+      },
+      "guests": {
+        "label": "Number of guests",
+        "min": "At least 1 guest.",
+        "max": "No more than 10."
+      }
+    }
   }
 }

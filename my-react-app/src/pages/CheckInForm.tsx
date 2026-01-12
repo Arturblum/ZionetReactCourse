@@ -1,7 +1,8 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { useTranslation } from 'react-i18next'
 import { useNotificationsStore } from '../stores'
 
 type Contact = {
@@ -71,54 +72,67 @@ const getStoredDefaults = (): CheckInFormValues => {
   }
 }
 
-const checkInFormSchema = z
-  .object({
-    firstName: z.string().min(1, 'First name is required.'),
-    lastName: z.string(),
-    email: z.string().email('Enter a valid email address.'),
-    phone: z.string(),
-    password: z.string().min(8, 'Password must be at least 8 characters.'),
-    confirmPassword: z.string().min(1, 'Please confirm your password.'),
-    company: z.string(),
-    role: z.string(),
-    contactMethod: z.enum(['email', 'phone', 'sms']),
-    subscribe: z.boolean(),
-    experience: z.coerce.number().min(0, 'Select 0-10.').max(10, 'Select 0-10.'),
-    bio: z.string(),
-    website: z.string().url('Enter a valid URL.').or(z.literal('')),
-    startDate: z.string(),
-    guests: z.coerce.number().min(1, 'At least 1 guest.').max(10, 'No more than 10.'),
-  })
-  .superRefine(({ password, confirmPassword }, context) => {
-    if (password !== confirmPassword) {
-      context.addIssue({
-        code: z.ZodIssueCode.custom,
-        path: ['confirmPassword'],
-        message: 'Passwords do not match.',
-      })
-    }
-  })
-
 function CheckInForm() {
   const [contacts, setContacts] = useState<Contact[]>([])
   const addNotification = useNotificationsStore((s) => s.addNotification)
+  const { t } = useTranslation(['checkin'])
+  const checkInFormSchema = useMemo(
+    () =>
+      z
+        .object({
+          firstName: z.string().min(1, t('fields.firstName.required')),
+          lastName: z.string(),
+          email: z.string().min(1, t('fields.email.required')).email(t('fields.email.invalid')),
+          phone: z.string(),
+          password: z.string().min(8, t('fields.password.min')),
+          confirmPassword: z.string().min(1, t('fields.confirmPassword.required')),
+          company: z.string(),
+          role: z.string(),
+          contactMethod: z.enum(['email', 'phone', 'sms']),
+          subscribe: z.boolean(),
+          experience: z
+            .coerce
+            .number()
+            .min(0, t('fields.experience.min'))
+            .max(10, t('fields.experience.max')),
+          bio: z.string(),
+          website: z.string().url(t('fields.website.invalid')).or(z.literal('')),
+          startDate: z.string(),
+          guests: z
+            .coerce
+            .number()
+            .min(1, t('fields.guests.min'))
+            .max(10, t('fields.guests.max')),
+        })
+        .superRefine(({ password, confirmPassword }, context) => {
+          if (password !== confirmPassword) {
+            context.addIssue({
+              code: z.ZodIssueCode.custom,
+              path: ['confirmPassword'],
+              message: t('fields.confirmPassword.mismatch'),
+            })
+          }
+        }),
+    [t]
+  )
   const {
     register,
     handleSubmit,
-    formState: { errors, isValid, isSubmitting },
+    formState: { errors, isSubmitting, submitCount },
     reset,
     watch,
   } = useForm<CheckInFormValues>({
     defaultValues: getStoredDefaults(),
-    mode: 'onBlur',
+    mode: 'onSubmit',
+    reValidateMode: 'onChange',
     resolver: zodResolver(checkInFormSchema),
   })
 
   useEffect(() => {
     document.title = contacts.length
-      ? `${contacts.length} contact${contacts.length === 1 ? '' : 's'} saved`
-      : 'Contact form'
-  }, [contacts])
+      ? t('contactCount', { count: contacts.length })
+      : t('title')
+  }, [contacts, t])
 
   useEffect(() => {
     const subscription = watch((values) => {
@@ -129,7 +143,8 @@ function CheckInForm() {
     return () => subscription.unsubscribe()
   }, [watch])
 
-  const countLabel = contacts.length === 1 ? '1 contact' : `${contacts.length} contacts`
+  const countLabel = t('contactCount', { count: contacts.length })
+  const hasErrors = submitCount > 0 && Object.keys(errors).length > 0
 
   const onSubmit = async (values: CheckInFormValues) => {
     const trimmedEmail = values.email.trim()
@@ -157,7 +172,7 @@ function CheckInForm() {
     reset(initialValues)
     addNotification({
       type: 'success',
-      message: 'Contact saved.',
+      message: t('contactSaved'),
       timeout: 3000,
     })
   }
@@ -165,81 +180,108 @@ function CheckInForm() {
   return (
     <section className="card">
       <div className="heading-row">
-        <h2>Simple contact form</h2>
+        <h2>{t('title')}</h2>
         <span className="contact-count">{countLabel}</span>
       </div>
-      <p className="muted">Complete the check-in details below.</p>
+      <p className="muted">{t('subtitle')}</p>
+      <p className="muted small">{t('requiredNote')}</p>
 
       <form className="form" onSubmit={handleSubmit(onSubmit)} noValidate>
+        {hasErrors && (
+          <div className="form-error" role="alert">
+            {t('errorsHeading')}
+          </div>
+        )}
         <div className="field">
-          <label htmlFor="firstName">First name</label>
+          <label htmlFor="firstName">
+            {t('fields.firstName.label')}
+            <span className="field-tag field-tag--required">{t('required')}</span>
+          </label>
           <input
             id="firstName"
             type="text"
             aria-invalid={Boolean(errors.firstName)}
+            aria-required="true"
             {...register('firstName')}
-            placeholder="Jhon"
+            placeholder={t('fields.firstName.placeholder')}
           />
           {errors.firstName && <p className="field-error">{errors.firstName.message}</p>}
         </div>
 
         <div className="field">
-          <label htmlFor="lastName">Last name</label>
+          <label htmlFor="lastName">
+            {t('fields.lastName.label')}
+            <span className="field-tag">{t('optional')}</span>
+          </label>
           <input
             id="lastName"
             type="text"
             aria-invalid={Boolean(errors.lastName)}
             {...register('lastName')}
-            placeholder="Doe"
+            placeholder={t('fields.lastName.placeholder')}
           />
           {errors.lastName && <p className="field-error">{errors.lastName.message}</p>}
         </div>
 
         <div className="field">
-          <label htmlFor="email">Email</label>
+          <label htmlFor="email">
+            {t('fields.email.label')}
+            <span className="field-tag field-tag--required">{t('required')}</span>
+          </label>
           <input
             id="email"
             type="email"
             aria-invalid={Boolean(errors.email)}
+            aria-required="true"
             {...register('email')}
-            placeholder="email@example.com"
-            required
+            placeholder={t('fields.email.placeholder')}
           />
           {errors.email && <p className="field-error">{errors.email.message}</p>}
         </div>
 
         <div className="field">
-          <label htmlFor="phone">Phone</label>
+          <label htmlFor="phone">
+            {t('fields.phone.label')}
+            <span className="field-tag">{t('optional')}</span>
+          </label>
           <input
             id="phone"
             type="tel"
             aria-invalid={Boolean(errors.phone)}
             {...register('phone')}
-            placeholder="(555) 123-4567"
+            placeholder={t('fields.phone.placeholder')}
           />
           {errors.phone && <p className="field-error">{errors.phone.message}</p>}
         </div>
 
         <div className="field">
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password">
+            {t('fields.password.label')}
+            <span className="field-tag field-tag--required">{t('required')}</span>
+          </label>
           <input
             id="password"
             type="password"
             aria-invalid={Boolean(errors.password)}
+            aria-required="true"
             {...register('password')}
-            placeholder="At least 8 characters"
+            placeholder={t('fields.password.placeholder')}
           />
           {errors.password && <p className="field-error">{errors.password.message}</p>}
         </div>
 
         <div className="field">
-          <label htmlFor="confirmPassword">Confirm password</label>
+          <label htmlFor="confirmPassword">
+            {t('fields.confirmPassword.label')}
+            <span className="field-tag field-tag--required">{t('required')}</span>
+          </label>
           <input
             id="confirmPassword"
             type="password"
             aria-invalid={Boolean(errors.confirmPassword)}
+            aria-required="true"
             {...register('confirmPassword')}
-            placeholder="Re-enter password"
+            placeholder={t('fields.confirmPassword.placeholder')}
           />
           {errors.confirmPassword && (
             <p className="field-error">{errors.confirmPassword.message}</p>
@@ -247,34 +289,43 @@ function CheckInForm() {
         </div>
 
         <div className="field">
-          <label htmlFor="company">Company</label>
+          <label htmlFor="company">
+            {t('fields.company.label')}
+            <span className="field-tag">{t('optional')}</span>
+          </label>
           <input
             id="company"
             type="text"
             aria-invalid={Boolean(errors.company)}
             {...register('company')}
-            placeholder="Zionet"
+            placeholder={t('fields.company.placeholder')}
           />
           {errors.company && <p className="field-error">{errors.company.message}</p>}
         </div>
 
         <div className="field">
-          <label htmlFor="role">Role</label>
+          <label htmlFor="role">
+            {t('fields.role.label')}
+            <span className="field-tag">{t('optional')}</span>
+          </label>
           <select
             id="role"
             aria-invalid={Boolean(errors.role)}
             {...register('role')}
           >
-            <option value="designer">Designer</option>
-            <option value="engineer">Engineer</option>
-            <option value="product">Product</option>
-            <option value="other">Other</option>
+            <option value="designer">{t('fields.role.options.designer')}</option>
+            <option value="engineer">{t('fields.role.options.engineer')}</option>
+            <option value="product">{t('fields.role.options.product')}</option>
+            <option value="other">{t('fields.role.options.other')}</option>
           </select>
           {errors.role && <p className="field-error">{errors.role.message}</p>}
         </div>
 
         <fieldset className="field field--full">
-          <legend>Preferred contact method</legend>
+          <legend>
+            {t('fields.contactMethod.legend')}
+            <span className="field-tag field-tag--required">{t('required')}</span>
+          </legend>
           <div className="choice-group">
             <label className="choice-row choice-custom" htmlFor="contactEmail">
               <input
@@ -285,7 +336,7 @@ function CheckInForm() {
                 {...register('contactMethod')}
               />
               <span className="choice-control" aria-hidden="true" />
-              <span>Email</span>
+              <span>{t('fields.contactMethod.options.email')}</span>
             </label>
             <label className="choice-row choice-custom" htmlFor="contactPhone">
               <input
@@ -296,7 +347,7 @@ function CheckInForm() {
                 {...register('contactMethod')}
               />
               <span className="choice-control" aria-hidden="true" />
-              <span>Phone call</span>
+              <span>{t('fields.contactMethod.options.phone')}</span>
             </label>
             <label className="choice-row choice-custom" htmlFor="contactSms">
               <input
@@ -307,7 +358,7 @@ function CheckInForm() {
                 {...register('contactMethod')}
               />
               <span className="choice-control" aria-hidden="true" />
-              <span>SMS</span>
+              <span>{t('fields.contactMethod.options.sms')}</span>
             </label>
           </div>
           {errors.contactMethod && (
@@ -324,14 +375,16 @@ function CheckInForm() {
               {...register('subscribe')}
             />
             <span className="choice-control" aria-hidden="true" />
-            <span>Subscribe to product updates</span>
+            <span>{t('fields.subscribe.label')}</span>
           </label>
           {errors.subscribe && <p className="field-error">{errors.subscribe.message}</p>}
         </div>
 
         <div className="field field--full">
           <label htmlFor="experience">
-            Experience level <span className="muted">(0-10)</span>
+            {t('fields.experience.label')}{' '}
+            <span className="muted">{t('fields.experience.rangeHint')}</span>
+            <span className="field-tag field-tag--required">{t('required')}</span>
           </label>
           <input
             id="experience"
@@ -339,37 +392,47 @@ function CheckInForm() {
             min="0"
             max="10"
             aria-invalid={Boolean(errors.experience)}
+            aria-required="true"
             {...register('experience')}
           />
           {errors.experience && <p className="field-error">{errors.experience.message}</p>}
         </div>
 
         <div className="field field--full">
-          <label htmlFor="bio">Short bio</label>
+          <label htmlFor="bio">
+            {t('fields.bio.label')}
+            <span className="field-tag">{t('optional')}</span>
+          </label>
           <textarea
             id="bio"
             aria-invalid={Boolean(errors.bio)}
             {...register('bio')}
-            placeholder="A couple of sentences about your experience."
+            placeholder={t('fields.bio.placeholder')}
             rows={4}
           />
           {errors.bio && <p className="field-error">{errors.bio.message}</p>}
         </div>
 
         <div className="field">
-          <label htmlFor="website">Portfolio website</label>
+          <label htmlFor="website">
+            {t('fields.website.label')}
+            <span className="field-tag">{t('optional')}</span>
+          </label>
           <input
             id="website"
             type="url"
             aria-invalid={Boolean(errors.website)}
             {...register('website')}
-            placeholder="https://example.com"
+            placeholder={t('fields.website.placeholder')}
           />
           {errors.website && <p className="field-error">{errors.website.message}</p>}
         </div>
 
         <div className="field">
-          <label htmlFor="startDate">Preferred start date</label>
+          <label htmlFor="startDate">
+            {t('fields.startDate.label')}
+            <span className="field-tag">{t('optional')}</span>
+          </label>
           <input
             id="startDate"
             type="date"
@@ -380,20 +443,24 @@ function CheckInForm() {
         </div>
 
         <div className="field">
-          <label htmlFor="guests">Number of guests</label>
+          <label htmlFor="guests">
+            {t('fields.guests.label')}
+            <span className="field-tag field-tag--required">{t('required')}</span>
+          </label>
           <input
             id="guests"
             type="number"
             min="1"
             max="10"
             aria-invalid={Boolean(errors.guests)}
+            aria-required="true"
             {...register('guests', { valueAsNumber: true })}
           />
           {errors.guests && <p className="field-error">{errors.guests.message}</p>}
         </div>
 
-        <button type="submit" disabled={!isValid || isSubmitting}>
-          {isSubmitting ? 'Saving...' : 'Save contact'}
+        <button type="submit" disabled={isSubmitting}>
+          {isSubmitting ? t('savingContact') : t('saveContact')}
         </button>
       </form>
 
