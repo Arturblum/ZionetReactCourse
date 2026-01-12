@@ -64,5 +64,97 @@
       "detailLoadFailed": "טעינת פרטי המוצר נכשלה."
     },
     "emptyList": "אין מוצרים זמינים כרגע."
+  },
+  "checkin": {
+    "title": "טופס יצירת קשר פשוט",
+    "subtitle": "מלא את פרטי הצ'ק-אין למטה.",
+    "contactCount": "איש קשר אחד",
+    "contactCount_other": "{{count}} אנשי קשר",
+    "requiredNote": "שדות שמסומנים כחובה חייבים להתמלא לפני שמירה.",
+    "required": "חובה",
+    "optional": "אופציונלי",
+    "saveContact": "שמור איש קשר",
+    "savingContact": "שומר...",
+    "contactSaved": "איש הקשר נשמר.",
+    "errorsHeading": "נא לתקן את השדות המסומנים.",
+    "fields": {
+      "firstName": {
+        "label": "שם פרטי",
+        "placeholder": "ג'ון",
+        "required": "שם פרטי הוא שדה חובה."
+      },
+      "lastName": {
+        "label": "שם משפחה",
+        "placeholder": "דו"
+      },
+      "email": {
+        "label": "אימייל",
+        "placeholder": "email@example.com",
+        "required": "אימייל הוא שדה חובה.",
+        "invalid": "נא להזין כתובת אימייל תקינה."
+      },
+      "phone": {
+        "label": "טלפון",
+        "placeholder": "(555) 123-4567"
+      },
+      "password": {
+        "label": "סיסמה",
+        "placeholder": "לפחות 8 תווים",
+        "min": "הסיסמה חייבת להיות לפחות 8 תווים."
+      },
+      "confirmPassword": {
+        "label": "אימות סיסמה",
+        "placeholder": "הזן שוב את הסיסמה",
+        "required": "נא לאשר את הסיסמה.",
+        "mismatch": "הסיסמאות אינן תואמות."
+      },
+      "company": {
+        "label": "חברה",
+        "placeholder": "Zionet"
+      },
+      "role": {
+        "label": "תפקיד",
+        "options": {
+          "designer": "מעצב",
+          "engineer": "מהנדס",
+          "product": "מוצר",
+          "other": "אחר"
+        }
+      },
+      "contactMethod": {
+        "legend": "אמצעי יצירת קשר מועדף",
+        "options": {
+          "email": "אימייל",
+          "phone": "שיחת טלפון",
+          "sms": "SMS"
+        }
+      },
+      "subscribe": {
+        "label": "הירשם לעדכוני מוצר"
+      },
+      "experience": {
+        "label": "רמת ניסיון",
+        "rangeHint": "(0-10)",
+        "min": "בחר 0-10.",
+        "max": "בחר 0-10."
+      },
+      "bio": {
+        "label": "קצת עליך",
+        "placeholder": "כמה משפטים על הניסיון שלך."
+      },
+      "website": {
+        "label": "אתר פורטפוליו",
+        "placeholder": "https://example.com",
+        "invalid": "נא להזין כתובת URL תקינה."
+      },
+      "startDate": {
+        "label": "תאריך התחלה מועדף"
+      },
+      "guests": {
+        "label": "מספר אורחים",
+        "min": "לפחות אורח אחד.",
+        "max": "לא יותר מ-10."
+      }
+    }
   }
 }
