@@ -4,5 +4,5 @@
   "projectType": "library",
   "sourceRoot": "libs/hooks/src",
   "targets": {},
-  "tags": []
+  "tags": ["type:hooks"]
 }

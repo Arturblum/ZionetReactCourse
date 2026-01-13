@@ -4,6 +4,7 @@ import globals from 'globals'
 import reactHooks from 'eslint-plugin-react-hooks'
 import reactRefresh from 'eslint-plugin-react-refresh'
 import { defineConfig, globalIgnores } from 'eslint/config'
+import nx from '@nx/eslint-plugin'
 
 export default defineConfig([
   globalIgnores(['dist']),
@@ -24,8 +25,36 @@ export default defineConfig([
         sourceType: 'module',
       },
     },
+    plugins: {
+      '@nx': nx,
+    },
     rules: {
       'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+      '@nx/enforce-module-boundaries': [
+        'error',
+        {
+          enforceBuildableLibDependency: false,
+          allow: [],
+          depConstraints: [
+            {
+              sourceTag: 'type:app',
+              onlyDependOnLibsWithTags: ['type:ui', 'type:hooks', 'type:i18n'],
+            },
+            {
+              sourceTag: 'type:ui',
+              onlyDependOnLibsWithTags: ['type:ui', 'type:hooks', 'type:i18n'],
+            },
+            {
+              sourceTag: 'type:hooks',
+              onlyDependOnLibsWithTags: ['type:hooks', 'type:i18n'],
+            },
+            {
+              sourceTag: 'type:i18n',
+              onlyDependOnLibsWithTags: ['type:i18n'],
+            },
+          ],
+        },
+      ],
     },
   },
 ])

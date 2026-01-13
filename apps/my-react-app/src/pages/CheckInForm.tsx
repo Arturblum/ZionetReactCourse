@@ -136,7 +136,7 @@ function CheckInForm() {
 
   useEffect(() => {
     const subscription = watch((values) => {
-      const { password, confirmPassword, ...safeValues } = values
+      const { password: _password, confirmPassword: _confirmPassword, ...safeValues } = values
       if (typeof window === 'undefined') return
       window.localStorage.setItem(storageKey, JSON.stringify(safeValues))
     })

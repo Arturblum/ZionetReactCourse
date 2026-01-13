@@ -6,24 +6,24 @@
   "scripts": {
     "dev": "nx serve",
     "build": "nx build",
-    "lint": "nx lint",
+    "lint": "eslint .",
     "preview": "nx preview",
     "test:e2e": "nx e2e"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",
-    "@tanstack/react-query": "^5.90.16",
-    "@tanstack/react-query-devtools": "^5.91.2",
-    "i18next": "^25.7.4",
+    "@tanstack/react-query": "^5.90.12",
+    "@tanstack/react-query-devtools": "^5.91.1",
+    "i18next": "^25.7.3",
     "primeicons": "^7.0.0",
     "primereact": "^10.9.7",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
     "react-hook-form": "^7.70.0",
-    "react-i18next": "^16.5.2",
+    "react-i18next": "^16.5.0",
     "react-router-dom": "^7.10.1",
     "zod": "^4.3.5",
-    "zustand": "^5.0.10"
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",

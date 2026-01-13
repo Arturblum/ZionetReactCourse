@@ -4,5 +4,5 @@
   "projectType": "library",
   "sourceRoot": "libs/i18n/src",
   "targets": {},
-  "tags": []
+  "tags": ["type:i18n"]
 }

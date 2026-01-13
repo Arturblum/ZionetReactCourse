@@ -4,5 +4,5 @@
   "projectType": "library",
   "sourceRoot": "libs/ui/src",
   "targets": {},
-  "tags": []
+  "tags": ["type:ui"]
 }

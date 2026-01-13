@@ -14,6 +14,7 @@
   },
   "devDependencies": {
     "@nx/eslint": "22.3.3",
+    "@nx/eslint-plugin": "^22.3.3",
     "@nx/playwright": "22.3.3",
     "@nx/vite": "22.3.3",
     "@nx/web": "22.3.3",
