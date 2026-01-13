@@ -3,5 +3,5 @@ type GlobalLoaderProps = {
 }
 
 export default function GlobalLoader({ message }: GlobalLoaderProps) {
-  return <p className="muted">{message}</p>
+  return <p className="muted global-loader">{message}</p>
 }
