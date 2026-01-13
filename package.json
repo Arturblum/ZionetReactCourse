@@ -18,6 +18,7 @@
     "@nx/vite": "22.3.3",
     "@nx/web": "22.3.3",
     "@playwright/test": "^1.36.0",
+    "@vitejs/plugin-react": "^5.1.2",
     "@vitest/ui": "^4.0.0",
     "eslint": "~8.57.0",
     "jiti": "2.4.2",
@@ -25,5 +26,8 @@
     "vite": "^7.0.0",
     "vitest": "^4.0.0"
   },
-  "dependencies": {}
+  "dependencies": {
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
+  }
 }

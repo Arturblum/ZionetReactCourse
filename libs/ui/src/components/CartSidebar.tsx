@@ -1,6 +1,6 @@
 import { useEffect, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { useCart } from '../contexts'
+import { useCart } from '@my-app/hooks'
 
 const CartSidebar = () => {
   const { isOpen, items, close, removeItem, clear } = useCart()

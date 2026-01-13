@@ -1,10 +1,8 @@
-import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { addProductToCart, fetchProduct, type Product } from '../api'
-import { useCart } from '../contexts'
-import { useNotificationsStore } from '../stores'
+import { useAddToCartMutation, useCart, useNotificationsStore, useProductDetail } from '@my-app/hooks'
+import { GlobalLoader } from '@my-app/ui'
 
 export const ProductDetail = () => {
   const { id } = useParams<{ id: string }>()
@@ -17,32 +15,21 @@ export const ProductDetail = () => {
     isLoading,
     isError,
     error,
-  } = useQuery<Product, Error>({
-    queryKey: ['product', id],
-    queryFn: async () => {
-      if (!id) {
-        throw new Error(t('missingId', { ns: 'products' }))
-      }
-      return fetchProduct(id)
-    },
-    enabled: Boolean(id),
+  } = useProductDetail({
+    id,
+    missingIdMessage: t('missingId', { ns: 'products' }),
   })
 
-  const addToCartMutation = useMutation({
-    mutationFn: async () => {
-      if (!data) {
-        throw new Error(t('missingProduct', { ns: 'products' }))
-      }
-      return addProductToCart(data.id, 1)
-    },
-    onSuccess: () => {
-      if (!data) return
+  const addToCartMutation = useAddToCartMutation({
+    product: data,
+    missingProductMessage: t('missingProduct', { ns: 'products' }),
+    onSuccess: (product) => {
       addItem(
         {
-          id: data.id,
-          title: data.title,
-          price: data.price,
-          thumbnail: data.thumbnail,
+          id: product.id,
+          title: product.title,
+          price: product.price,
+          thumbnail: product.thumbnail,
         },
         { notify: false },
       )
@@ -56,10 +43,7 @@ export const ProductDetail = () => {
       addNotification({
         id: `add-to-cart-error:${id ?? 'missing-id'}`,
         type: 'error',
-        message:
-          mutationError instanceof Error
-            ? mutationError.message
-            : t('addToCartFailed', { ns: 'products' }),
+        message: mutationError.message || t('addToCartFailed', { ns: 'products' }),
         timeout: 6000,
       })
     },
@@ -80,7 +64,7 @@ export const ProductDetail = () => {
   }
 
   if (isLoading) {
-    return <p>{t('loadingDetail', { ns: 'products' })}</p>
+    return <GlobalLoader message={t('loadingDetail', { ns: 'products' })} />
   }
 
   if (isError) {

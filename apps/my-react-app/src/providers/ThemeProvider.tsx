@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect } from 'react'
-import { loadPrimeReactTheme, useThemeStore } from '../stores'
+import { loadPrimeReactTheme, useThemeStore } from '@my-app/hooks'
 
 type ThemeProviderProps = {
   children: ReactNode

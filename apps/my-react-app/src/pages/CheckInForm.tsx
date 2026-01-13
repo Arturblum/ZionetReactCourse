@@ -3,7 +3,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useTranslation } from 'react-i18next'
-import { useNotificationsStore } from '../stores'
+import { useNotificationsStore } from '@my-app/hooks'
 
 type Contact = {
   id: string

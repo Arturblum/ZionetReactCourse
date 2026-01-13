@@ -1,12 +1,6 @@
 import { type ReactNode, useEffect } from 'react'
 import { useTranslation } from 'react-i18next'
-import '../i18n'
-
-export const LANGUAGE_STORAGE_KEY = 'app-language'
-
-export const saveLanguagePreference = (language: string) => {
-  localStorage.setItem(LANGUAGE_STORAGE_KEY, language)
-}
+import { LANGUAGE_STORAGE_KEY, isRtlLang } from '@my-app/i18n'
 
 type I18nProviderProps = {
   children: ReactNode
@@ -25,8 +19,7 @@ export function I18nProvider({ children }: I18nProviderProps) {
 
   // Set RTL mode for Hebrew language
   useEffect(() => {
-    const isRTL = i18n.language === 'he'
-    document.documentElement.dir = isRTL ? 'rtl' : 'ltr'
+    document.documentElement.dir = isRtlLang(i18n.language) ? 'rtl' : 'ltr'
     document.documentElement.lang = i18n.language
   }, [i18n.language])
 

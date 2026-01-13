@@ -1,4 +1,4 @@
-import { useNotificationsStore } from '../stores'
+import { useNotificationsStore } from '@my-app/hooks'
 
 function About() {
   const addNotification = useNotificationsStore((s) => s.addNotification)

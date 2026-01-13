@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useNotificationsStore, type Notification } from '../stores'
+import { useNotificationsStore, type Notification } from '@my-app/hooks'
 
 type RemoveNotification = ReturnType<typeof useNotificationsStore.getState>['removeNotification']
 

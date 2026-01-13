@@ -1,11 +1,10 @@
 import { Link, Route, Routes } from 'react-router-dom'
 import './App.css'
-import { CartSidebar, ToastHost } from './components'
-import { useCart } from './contexts'
+import { CartSidebar, ToastHost } from '@my-app/ui'
+import { useCart, useThemeStore, type PrimeReactTheme } from '@my-app/hooks'
 import { About, CheckInForm, ProductDetail, Products } from './pages'
-import { useThemeStore, type PrimeReactTheme } from './stores'
 import { useTranslation } from 'react-i18next'
-import { saveLanguagePreference } from './providers'
+import { saveLanguagePreference } from '@my-app/i18n'
 
 const PRIMEREACT_THEMES: { label: string; value: PrimeReactTheme }[] = [
   { label: 'Lara Light Blue', value: 'lara-light-blue' },
