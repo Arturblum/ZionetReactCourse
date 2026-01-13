@@ -9,3 +9,5 @@ playwright-report/
 test-results/
 vite.config.*.timestamp*
 .DS_Store
+nx-graph.html
+static/
