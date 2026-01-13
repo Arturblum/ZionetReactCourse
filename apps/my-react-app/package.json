@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
-    "lint": "eslint .",
-    "preview": "vite preview",
-    "test:e2e": "playwright test"
+    "dev": "nx serve",
+    "build": "nx build",
+    "lint": "nx lint",
+    "preview": "nx preview",
+    "test:e2e": "nx e2e"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

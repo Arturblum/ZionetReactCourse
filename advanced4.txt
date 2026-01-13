@@ -1,0 +1,133 @@
+Homework - Session 4 (Nx Monorepo & Capstone Polish) 
+
+This is your final capstone homework: take your single Vite app repo and make it behave like a real Nx workspace (apps/libs, graph, affected, boundaries, README + short walkthrough). 
+
+Part A - Nx migration deliverable (required) 
+
+A1) Create the Nx workspace (in the same repo) 
+
+Goal: nx graph, nx serve, nx build, nx lint work. 
+
+Do:  
+
+Create a branch: nx-migration 
+
+Initialize Nx in the repo (use npx): npx nx@latest init 
+
+Acceptance checks:  
+
+npx nx show projects prints your project(s) 
+
+npx nx serve <your-app> runs your app 
+
+npx nx graph opens the project graph 
+
+Tip: If you see "nx is not recognized", always run npx nx ... (Windows PATH often is not set). 
+
+A2) Create libs and move real code into them 
+
+Do:  
+
+Create these libs: 
+
+libs/ui 
+
+libs/hooks 
+
+libs/i18n 
+
+Move at least these pieces out of the app into libs (choose equivalents if your app differs): 
+
+UI lib: Toaster, GlobalLoader, and 1 more UI component (e.g., a shared AppCard wrapper) 
+
+Hooks lib: all TanStack Query hooks (list/detail/infinite + mutations) 
+
+i18n lib: i18next init + LanguageSwitcher helpers / isRtlLang 
+
+Acceptance checks:  
+
+App imports from libs using aliases (e.g., @my-app/ui, @my-app/hooks, @my-app/i18n) 
+
+The app still runs with npx nx serve <app> 
+
+A3) Enforce architecture with Nx module boundaries 
+
+Goal: stop spaghetti imports. 
+
+Do:  
+
+Enable @nx/enforce-module-boundaries 
+
+Add tags / constraints (simple version is fine). Example policy: 
+
+type:ui can depend on type:hooks and type:i18n 
+
+type:hooks cannot depend on type:ui 
+
+apps can depend on all libs 
+
+libs cannot import from apps 
+
+Acceptance checks:  
+
+Intentionally break a rule (import app code into a lib) -> lint fails 
+
+Fix it -> lint passes 
+
+A4) Prove you understand 'affected' 
+
+Goal: show Nx only runs what changed. 
+
+Do:  
+
+1. Make a change only in libs/ui (like a CSS class or label) 
+
+2. Run: npx nx affected -t lint,build,test 
+
+3. Run: npx nx print-affected -t build (or equivalent output) 
+
+Submit the console output (copy-paste into your README). 
+
+Part B - Capstone polish (required) 
+
+Write a concise README (max ~60 lines) 
+
+Your README must contain: 
+
+How to run: serve, build, lint, test 
+
+Workspace structure: apps + libs (1-2 lines each) 
+
+Architecture rules (module boundaries summary) 
+
+Affected demo: paste the outputs from Part A4 
+
+Stretch tasks (pick 1) 
+
+S1) Add an 'Nx speed' script + caching proof 
+
+Add scripts like: 
+
+lint:all -> nx run-many -t lint --all 
+
+check:affected -> nx affected -t lint,test,build 
+
+Then show two consecutive builds and note the second run is faster / cached. 
+
+S2) Add an optional Next.js app inside apps/ 
+
+Make apps/next-app that reuses at least one lib (e.g., libs/i18n or a small UI component). 
+
+S3) CI-friendly command 
+
+Add a single command that CI can run (document it in README): 
+
+nx affected -t lint,test,build --base=origin/main --head=HEAD 
+
+What to submit 
+
+1. Repo link 
+
+2. README with required sections + affected output pasted 
+
+3. Optional: screenshots of nx graph and folder structure 
