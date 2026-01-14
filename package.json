@@ -1,0 +1,35 @@
+{
+  "name": "zionet-react-course",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "libs/*"
+  ],
+  "scripts": {
+    "nx": "nx",
+    "serve": "nx serve my-react-app",
+    "build": "nx build my-react-app",
+    "lint": "nx lint my-react-app",
+    "test": "nx test my-react-app",
+    "ci:affected": "nx affected -t lint,test,build --base=origin/main --head=HEAD"
+  },
+  "devDependencies": {
+    "@nx/eslint": "22.3.3",
+    "@nx/eslint-plugin": "^22.3.3",
+    "@nx/playwright": "22.3.3",
+    "@nx/vite": "22.3.3",
+    "@nx/web": "22.3.3",
+    "@playwright/test": "^1.36.0",
+    "@vitejs/plugin-react": "^5.1.2",
+    "@vitest/ui": "^4.0.0",
+    "eslint": "~8.57.0",
+    "jiti": "2.4.2",
+    "nx": "22.3.3",
+    "vite": "^7.0.0",
+    "vitest": "^4.0.0"
+  },
+  "dependencies": {
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
+  }
+}

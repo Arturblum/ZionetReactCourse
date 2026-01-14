@@ -1,0 +1,8 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "name": "i18n",
+  "projectType": "library",
+  "sourceRoot": "libs/i18n/src",
+  "targets": {},
+  "tags": ["type:i18n"]
+}
